@@ -102,7 +102,7 @@ function view_profile_picture($data)
     }
 }
 
-function get_any_table_array($data_where = false, $table, $col_sort = false, $type_sort = false)
+function get_any_table_array($data_where = false, $table = false, $col_sort = false, $type_sort = false)
 {
     $tco = load_instance();
     $tco->load->database();
@@ -157,4 +157,38 @@ function update_keytab_value($key, $val)
     $tco->db->update('keytab');
 
     return $tco->db->affected_rows();
+}
+
+function get_ref_subject($code)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->where(array('code' => $code));
+    $query = $tco->db->get('ref_subject');
+
+    if ($query->num_rows() > 0) {
+        $result = $query->row();
+        return $result->descs;
+    } else {
+        return false;
+    }
+}
+
+function get_class_ref($id)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->where(array('id' => $id));
+    $query = $tco->db->get('class');
+
+    if ($query->num_rows() > 0) {
+        $result = $query->row();
+        return $result->name;
+    } else {
+        return false;
+    }
 }

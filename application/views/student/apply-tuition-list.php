@@ -55,11 +55,18 @@
 										}
 									?>
 								</td>
-								<td>RM<?= $key['total']?></td>
+								<td>RM<?= $key['total']?> <? if($key['paid'] == '1'){ echo '<i class="flaticon2-correct text-danger font-size-h5"></i>'; } else {  } ?> </td>
 								<td><span class="label label-warning label-pill label-inline mr-2"><?= $key['stage']?></span></td>
 								<td nowrap="nowrap">
-									<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase edit-subject-payment" data-init="<?= $key['tuition_id']?>">Edit</a>
-									<a href="#" class="btn btn-sm btn-warning font-weight-bolder text-uppercase pay-tuition" data-init="<?= $key['tuition_id']?>">Pay</a>
+
+									<? if($key['paid'] == '1'){ ?>
+
+											<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase view-tuition-details" data-init="<?= $key['tuition_id']?>">View Details</a>
+
+									<? } else { ?>
+											<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase edit-subject-payment" data-init="<?= $key['tuition_id']?>">Edit</a>
+											<a href="#" class="btn btn-sm btn-warning font-weight-bolder text-uppercase pay-tuition" data-init="<?= $key['tuition_id']?>">Pay</a>
+									<? } ?>
 								</td>
 							</tr>
 						<? }  ?>

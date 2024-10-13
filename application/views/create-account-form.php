@@ -132,7 +132,6 @@
                       <option value="">Please Select</option>
                       <option value="1">Tutor</option>
                       <option value="2">Student</option>
-                      <option value="3">Parent</option>
                   </select>
                 </div>
 

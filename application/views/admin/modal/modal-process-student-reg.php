@@ -35,10 +35,12 @@
 			   </div>
 			   <div class="form-group row">
 			    	<label for="example-password-input" class="col-12 col-form-label">Copy of Indentity Card (Optional)</label>
+			    	<? if($student_doc): ?>
 			    	<label for="example-password-input" class="col-12 col-form-label">
 			    		<? $path = $student_doc['path'] . "/" . $student_doc['filename']; ?>
 			    		<a href="../<?= $path; ?>" target="_BLANK"><?= $student_doc['original_filename'] ?></a>
 			    	</label>
+			    	<? endif; ?>
 			   </div>
 			   <div class="form-group row">
 			    	<label for="example-tel-input" class="col-2 col-form-label">Approval</label>

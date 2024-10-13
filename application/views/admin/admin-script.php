@@ -31,6 +31,48 @@ $(document).on('click', '.process-student-register', function(e){
     });
 });
 
+$(document).on('click', '.process-tutor-app', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+    console.log(id);
+
+    $.ajax({
+        url: base_url + 'admin/tutor_application_form',
+        type: "POST",
+        data: {id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.view-tutor', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+    console.log(id);
+
+    $.ajax({
+        url: base_url + 'admin/view_tutor_application',
+        type: "POST",
+        data: {id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
 $(document).on('click', '.proceed-student-register', function(e){
     e.preventDefault();
 
@@ -90,6 +132,536 @@ $(document).on('click', '.proceed-student-register', function(e){
 		            // console.log(data);
 		        },
 		    });
+        }
+    });
+});
+
+$(document).on('click', '.proceed-tutor-app', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+    var decision = $("#decision-reg-tutor").val();
+    console.log(id);
+
+    if (decision == '') {
+        $("#required-approval-tutor").html('<font color="red">Please select approval</font>');
+        return false;
+    }
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This will be send to Tutor",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Confirm"
+    }).then(function(result) {
+        if (result.value) {
+           
+            $.ajax({
+                url: base_url + 'admin/proceed_tutor_application',
+                type: "POST",
+                data: {id:id,decision:decision},
+                async: true,
+                dataType:"json",
+                success: function( response ){
+                    if (response.status == true) {
+                        Swal.fire({
+                            text: response.msg,
+                            icon: "success",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then((function(t) {
+                            if (t.isConfirmed) {
+                                $("#modal_student_regform").modal('hide');
+                                location.reload();
+                            }
+                        }))
+                    } else {
+                        Swal.fire({
+                            text: response.msg,
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        })
+                    }
+                },
+                error: function(data){
+                    // console.log(data);
+                },
+            });
+        }
+    });
+});
+
+$(document).on('click', '.process-tuition-app', function(e){
+    e.preventDefault();
+
+    var tuition_id = $(this).data('init');
+    // console.log(id);
+
+    $.ajax({
+        url: base_url + 'admin/process_tuition_modal',
+        type: "POST",
+        data: {tuition_id:tuition_id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.proceed-class-management', function(e){
+    e.preventDefault();
+
+    var tuition_id = $(this).data('init');
+    // console.log(id);
+
+    $.ajax({
+        url: base_url + 'admin/check_payment_verify',
+        type: "POST",
+        data: {tuition_id:tuition_id},
+        async: true,
+        dataType:"json",
+        success: function( response ){
+
+            console.log(response);
+
+            if (response.status == false) {
+                Swal.fire({
+                    text: "Please verify payment first",
+                    icon: "error",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                })
+            } else {
+
+                // $.ajax({
+                //     url: base_url + 'admin/proceed_to_class_management',
+                //     type: "POST",
+                //     data: {tuition_id:tuition_id},
+                //     async: true,
+                //     success: function( response ){
+                //         if (response.status == true) {
+
+                //         }
+                //     },
+                //     error: function(data){
+                //         // console.log(data);
+                //     },
+                // });
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This will be route to Scheduling",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, Confirm"
+                }).then(function(result) {
+                    if (result.value) {
+
+
+                        $.ajax({
+                            url: base_url + 'admin/proceed_to_class_management',
+                            type: "POST",
+                            data: {tuition_id:tuition_id},
+                            async: true,
+                            dataType:"json",
+                            success: function( response ){
+                                if (response.status == true) {
+                                    if (response.status == true) {
+                                        Swal.fire({
+                                            text: "Application has been route to Scheduling",
+                                            icon: "success",
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ok, got it!",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary"
+                                            }
+                                        }).then((function(t) {
+                                            if (t.isConfirmed) {
+                                                $("#modal_student_regform").modal('hide');
+                                                location.reload();
+                                            }
+                                        }))
+                                    } else {
+                                        Swal.fire({
+                                            text: response.msg,
+                                            icon: "error",
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ok, got it!",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary"
+                                            }
+                                        })
+                                    }
+                                }
+                            },
+                            error: function(data){
+                                // console.log(data);
+                            },
+                        });
+                    }
+                });
+
+            }
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+function act_verify_payment(tuition_id)
+{   
+
+    // Get the checkbox element
+    const checkbox = document.getElementById('verify-check');
+    var verify_val = '';
+  
+    // Check if the checkbox is checked or not
+    if (checkbox.checked) {
+        verify_val = '1';
+    } else {
+        verify_val = '0';
+    }
+
+    $.ajax({
+        url: base_url + 'admin/save_verify_payment',
+        type: "POST",
+        data: {tuition_id:tuition_id,verify_val:verify_val},
+        async: true,
+        dataType:"json",
+        success: function( response ){
+            iziToast.success({
+                // title: 'success',
+                message: "Data Saved !",
+                transitionIn: 'bounceInLeft',
+                position: 'topCenter',
+            });
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+}
+
+$(document).on('click', '.add-new-tutor', function(e){
+    e.preventDefault();
+
+    $.ajax({
+        url: base_url + 'admin/add_new_tutor_modal',
+        type: "POST",
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.proceed-add-tutor', function(e){
+    e.preventDefault();
+
+    $.ajax({
+        url: base_url + 'admin/save_new_tutor',
+        type: "POST",
+        async: true,
+        dataType:"json",
+        success: function( response ){
+            console.log(response);
+            if (response.is_fill == false) {
+
+                iziToast.error({
+                    // title: 'success',
+                    message: "Please fill all the required field",
+                    transitionIn: 'bounceInLeft',
+                    position: 'topCenter',
+                });
+
+            } else {
+
+            }
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.add-new-class', function(e){
+    e.preventDefault();
+
+    $.ajax({
+        url: base_url + 'admin/add_new_class_modal',
+        type: "POST",
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.update-class', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/update_class_modal',
+        type: "POST",
+        async: true,
+        data:{id:id},
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.do-update-class', function(e){
+    e.preventDefault();
+
+    var form_clssupdate = $("#update-class-form-data").serialize();
+
+    $.ajax({
+        url: base_url + 'admin/do_update_class',
+        type: "POST",
+        async: true,
+        data:form_clssupdate,
+        dataType:"json",
+        success: function( response ){
+            if (response.status == true) {
+                Swal.fire({
+                    text: "Class Updated !",
+                    icon: "success",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then((function(t) {
+                    if (t.isConfirmed) {
+                        location.reload();
+                    }
+                }))
+            } else {
+                iziToast.error({
+                    // title: 'success',
+                    message: "Please insert class name",
+                    transitionIn: 'bounceInLeft',
+                    position: 'topCenter',
+                });
+                return;
+            }
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.submit-new-class', function(e){
+    e.preventDefault();
+
+    var form_data = $("#class-form-data").serialize();
+
+    $.ajax({
+        url: base_url + 'admin/save_new_class',
+        type: "POST",
+        data: form_data,
+        async: true,
+        dataType:"json",
+        success: function( response ){
+
+            if (response.status == false) {
+                iziToast.error({
+                    // title: 'success',
+                    message: "Please insert class name",
+                    transitionIn: 'bounceInLeft',
+                    position: 'topCenter',
+                });
+                return;
+            } else {
+                // iziToast.success({
+                //     // title: 'success',
+                //     message: "Class Saved !",
+                //     transitionIn: 'bounceInLeft',
+                //     position: 'topCenter',
+                // });
+                // location.reload();
+                Swal.fire({
+                    text: "Class Saved !",
+                    icon: "success",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then((function(t) {
+                    if (t.isConfirmed) {
+                        $("#modal_student_regform").modal('hide');
+                        location.reload();
+                    }
+                }))
+            }
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.delete-class', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+
+    Swal.fire({
+        title: "Delete this class?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Confirm"
+    }).then(function(result) {
+        if (result.value) {
+           
+            $.ajax({
+                url: base_url + 'admin/delete_class',
+                type: "POST",
+                data:{id:id},
+                dataType:"json",
+                async: true,
+                success: function( response ){
+                    if (response.status == true) {
+
+                        Swal.fire({
+                            text: "Class Deleted !",
+                            icon: "success",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then((function(t) {
+                            if (t.isConfirmed) {
+                                location.reload();
+                            }
+                        }))
+
+                    } else {
+                        iziToast.error({
+                            // title: 'success',
+                            message: "Error on delete class",
+                            transitionIn: 'bounceInLeft',
+                            position: 'topCenter',
+                        });
+                        return;   
+                    }
+                },
+                error: function(data){
+                    // console.log(data);
+                },
+            });
+                
+        }
+    });
+});
+
+$(document).on('click', '.assign-class', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/assign_class_modal',
+        type: "POST",
+        data:{id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+$(document).on('click', '.do-assign-class', function(e){
+    e.preventDefault();
+
+    var assign_class_data = $("#assign-class-form-data").serialize();
+
+    Swal.fire({
+        title: "Are you sure?",
+        // text: "This will be send to student",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Confirm"
+    }).then(function(result) {
+        if (result.value) {
+           
+            $.ajax({
+                url: base_url + 'admin/proceed_assign_class',
+                type: "POST",
+                data: assign_class_data,
+                async: true,
+                dataType:"json",
+                success: function( response ){
+                    if (response.status == true) {
+                        Swal.fire({
+                            text: "Class successfullyy assigned",
+                            icon: "success",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then((function(t) {
+                            if (t.isConfirmed) {
+                                $("#modal_student_regform").modal('hide');
+                                location.reload();
+                            }
+                        }))
+                    } else {
+                        Swal.fire({
+                            text: response.msg,
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        })
+                    }
+                },
+                error: function(data){
+                    // console.log(data);
+                },
+            });
         }
     });
 });

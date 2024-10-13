@@ -1,5 +1,5 @@
 <?php
-
+#[\AllowDynamicProperties]
 class Student_model extends CI_Model {
 
     function __construct()

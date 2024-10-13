@@ -7,7 +7,7 @@
 
 <div class="modal fade" id="modal_apply_tuition" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
 
-<div class="modal fade" id="modal_apply_tuition" role="dialog" aria-hidden="true"></div>
+<div class="modal fade" id="modal_upload_receipt"></div>
 
 <script type="text/javascript">
 
@@ -80,10 +80,10 @@
             success: function( response ){
                 if (response.status == false) {
                 	iziToast.error({
-		                title: 'Warning',
+		                // title: 'Warning',
 		                message: "Maximun 1 file only are allowed for upload",
 		                transitionIn: 'bounceInLeft',
-		                position: 'topRight',
+		                position: 'topCenter',
 		            });
                 } else {
                     $.ajax({
@@ -307,6 +307,180 @@
 
         $.ajax({
             url: base_url + 'student/pay_tuition',
+            type: "POST",
+            async: true,
+            data:{tuition_id:tuition_id},
+            success: function( response ){
+                $('#modal_apply_tuition').html(response);
+                $('#modal_apply_tuition').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+    $(document).on('click', '.upload-receipt', function(e){
+        e.preventDefault();
+
+        var tuition_id = $(this).data('init');
+
+        $.ajax({
+            url: base_url + 'upload/check_receipt_document',
+            type: "POST",
+            async: true,
+            data:{tuition_id:tuition_id},
+            dataType:"json",
+            success: function( response ){
+                if (response.status == false) {
+                    iziToast.info({
+                        // title: 'Warning',
+                        message: "Maximun 1 file only are allowed for upload",
+                        transitionIn: 'bounceInLeft',
+                        position: 'topCenter',
+                    });
+                } else {
+                    $.ajax({
+                        url: base_url + 'upload/upload_receipt_document',
+                        type: "POST",
+                        data: {module:"PAY_RECEIPT",tuition_id:tuition_id},
+                        async: true,
+                        success: function( response ){
+                            $('#modal_upload_receipt').html(response);
+                            $('#modal_upload_receipt').modal('show');
+                        },
+                        error: function(data){
+                            // console.log(data);
+                        },
+                    });
+                }
+            },
+            error: function(data){
+            },
+        });  
+    });
+
+    $(document).on('click', '.delete-receipt-doc', function(e){
+        e.preventDefault();
+
+        var id = $(this).data('init');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This file will be delete",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!"
+        }).then(function(result) {
+            if (result.value) {
+               
+                $.ajax({
+                    url: base_url + 'upload/delete_file',
+                    type: "POST",
+                    data: {id:id},
+                    async: true,
+                    dataType:"json",
+                    success: function( response ){
+                        console.log(response);
+                        if (response.status == true) {
+                            Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                            )
+                        }
+                        $("#load-receipt-doc").html('');
+                    },
+                    error: function(data){
+                        // console.log(data);
+                    },
+                });
+            }
+        }); 
+    });
+
+    $(document).on('click', '.submit-tuition', function(e){
+        e.preventDefault();
+
+        var tuition_id = $(this).data('init');
+
+        $.ajax({
+            url: base_url + 'upload/check_receipt_document',
+            type: "POST",
+            async: true,
+            data:{tuition_id:tuition_id},
+            dataType:"json",
+            success: function( response ){
+                if (response.status == false) {
+                    // allow to submit
+                    Swal.fire({
+                        title: "Are you sure want to submit?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, Proceed!"
+                    }).then(function(result) {
+                        if (result.value) {
+                           
+                            $.ajax({
+                                url: base_url + 'student/submit_tuition_application',
+                                type: "POST",
+                                data: {tuition_id:tuition_id},
+                                async: true,
+                                dataType:"json",
+                                success: function( response ){
+                                    // console.log(response);
+                                    if (response.status == true) {
+                                        Swal.fire({
+                                            text: response.msg,
+                                            icon: "success",
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ok, got it!",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary"
+                                            }
+                                        }).then((function(t) {
+                                            if (t.isConfirmed) {
+                                                $("#modal_apply_tuition").modal('hide');
+                                                location.reload();
+                                            }
+                                        }))
+
+                                    } else {
+                                        Swal.fire(
+                                            "Error!",
+                                            "Something wrong",
+                                            "error"
+                                        )
+                                    }
+                                },
+                                error: function(data){
+                                    // console.log(data);
+                                },
+                            });
+                        }
+                    });
+
+                } else {
+                    iziToast.error({
+                        // title: 'Payment Receipt',
+                        message: "Please upload payment receipt",
+                        transitionIn: 'bounceInLeft',
+                        position: 'topCenter',
+                    });
+                }
+            },
+            error: function(data){
+            },
+        });  
+    });
+
+    $(document).on('click', '.view-tuition-details', function(e){
+        e.preventDefault();
+
+        var tuition_id = $(this).data('init');
+
+        $.ajax({
+            url: base_url + 'student/view_tuition_modal',
             type: "POST",
             async: true,
             data:{tuition_id:tuition_id},

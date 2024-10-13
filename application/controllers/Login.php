@@ -43,6 +43,8 @@ class Login extends CI_Controller {
 			switch ($check_login['data']['user_type']) {
 				case '1':
 					# tutor
+					$this->session->set_flashdata('success_login', 'Successfully Login');
+					redirect('tutor');
 					break;
 				case '2':
 					# student

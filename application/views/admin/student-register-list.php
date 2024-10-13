@@ -14,7 +14,7 @@
 						<th>Name</th>
 						<th>Phone</th>
 						<th>Email</th>
-						<th>Action</th>
+						<th style="text-align: right;">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -26,7 +26,7 @@
 							<td><?= $key['name']?></td>
 							<td><?= $key['phone_no']?></td>
 							<td><?= $key['email']?></td>
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" align="right">
 								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase process-student-register" data-init="<?= $key['id']?>">Process</a>
 							</td>
 						</tr>

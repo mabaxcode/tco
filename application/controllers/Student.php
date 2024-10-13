@@ -285,8 +285,51 @@ class Student extends CI_Controller {
 
         $data['tuition_data'] = get_any_table_row(array('tuition_id' => $tuition_id), 'tuition_application');
 
+        $data['student_data'] = get_any_table_row(array('student_id' => $data['tuition_data']['student_id']), 'student_information');
+
+        $data['receipt_doc'] = get_any_table_row(array('student_id' => $this->user_id, 'tuition_id' => $tuition_id, 'module' => 'PAY_RECEIPT'), 'student_document');
+
         // echo "<pre>"; print_r($data['tuition_data']); echo "</pre>";
 
         $this->load->view('student/modal/modal-pay-tuition', $data);
+    }
+
+    function submit_tuition_application($data=false)
+    {
+        $post = $this->input->post();
+        $tuition_id = $post['tuition_id'];
+
+        $update = array('paid' => '1', 'stage' => 'PROCESSING', 'internal_stage' => 'VERIFY');
+        $where = array('tuition_id' => $tuition_id, 'student_id' => $this->user_id );
+
+        $update_doc = array('is_submit' => '1');
+        $where_doc = array('tuition_id' => $tuition_id, 'module' => 'PAY_RECEIPT');
+
+        $update_tuition_app = update_any_table($update, $where, 'tuition_application');
+
+        if ($update_tuition_app == true) {
+            $update_doc = update_any_table($update_doc, $where_doc, 'student_document');
+            $response = array('status' => true, 'msg' => 'Your application has been submit');
+        } else {
+            $response = array('status' => false, 'msg' => 'Failed to submit application' );
+        }
+
+        echo encode($response);
+    }
+
+    function view_tuition_modal($data=false)
+    {
+
+        $post = $this->input->post();
+
+        $tuition_id = $post['tuition_id'];
+
+        $data['tuition_data'] = get_any_table_row(array('tuition_id' => $tuition_id), 'tuition_application');
+
+        $data['student_data'] = get_any_table_row(array('student_id' => $data['tuition_data']['student_id']), 'student_information');
+
+        $data['receipt_doc'] = get_any_table_row(array('student_id' => $this->user_id, 'tuition_id' => $tuition_id, 'module' => 'PAY_RECEIPT'), 'student_document');
+
+        $this->load->view('student/modal/modal-view-tuition', $data);
     }
 }
