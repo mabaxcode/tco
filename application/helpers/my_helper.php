@@ -192,3 +192,24 @@ function get_class_ref($id)
         return false;
     }
 }
+
+function get_value_from_any_table($tbl, $col, $where, $order_by = false)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select($col);
+    $tco->db->where($where);
+    if ($order_by <> false) {
+        $tco->db->order_by($order_by, 'DESC');
+        $tco->db->limit(1);
+    }
+    $query = $tco->db->get($tbl);
+
+    if ($query->num_rows() > 0) {
+        $result = $query->row();
+        return $result->$col;
+    } else {
+        return false;
+    }
+}

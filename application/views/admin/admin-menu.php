@@ -120,7 +120,7 @@
 						</svg>
 						<!--end::Svg Icon-->
 					</span>
-					<span class="menu-text">Class Scheduling</span>
+					<span class="menu-text">Scheduling & Class Management</span>
 				</a>
 			</li>
 			<?/*

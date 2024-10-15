@@ -25,7 +25,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Name</th>
+						<th>Tutor's Name</th>
 						<th>Age</th>
 						<th>Phone No.</th>
 						<th>Tutor's Class</th>
@@ -50,7 +50,6 @@
 												<?= get_class_ref($key['assign_class']);?>
 											</span>
 								<? } ?>
-								
 							</td>
 							<td>
 								<b><?= get_ref_subject($key['subject']); ?></b>

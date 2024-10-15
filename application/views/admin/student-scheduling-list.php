@@ -13,7 +13,7 @@
 						<th>No</th>
 						<th>Tuition ID</th>
 						<th>Student Name</th>
-						<th>Total Paid Amount</th>
+						<th>Student's Subject</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -24,10 +24,25 @@
 						<tr>
 							<td><?= $no++;?></td>
 							<td><?= $key['tuition_id']?></td>
-							<td><?= $key['tuition_id']?></td>
-							<td>RM<?= $key['total']?></td>
 							<td>
-								<a href="<?= base_url('admin/student_scheduling/'. $key['tuition_id']) ?>" class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Scheduling</a>
+								<?= strtoupper(get_value_from_any_table('student_information', 'name', array('student_id' => $key['student_id'])));?>
+							</td>
+							<td>
+									
+								<? 
+
+								$subject_arr = explode("|",$key['subjects']);
+								foreach ($subject_arr as $val => $value) {
+									$ref_subject = get_any_table_row(array('code' => $value), 'ref_subject');
+									?>
+										<b><?= $ref_subject['descs']?></b><br>
+									<?
+								}
+
+								?>
+							</td>
+							<td>
+								<a href="<?= base_url('admin/student_scheduling/'. $key['tuition_id']) ?>" class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Create Scheduling</a>
 							</td>
 						</tr>
 						<? } ?>

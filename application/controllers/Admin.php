@@ -238,9 +238,11 @@ class Admin extends CI_Controller {
         $data['page_title']  = 'Scheduling & Class Management';
         $data['add_script']  = 'admin/admin-script';
 
-        $data['this_app'] = get_any_table_array(array('tuition_id' => $tuition_id), 'tuition_application');
+        $data['tuition_data'] = get_any_table_row(array('tuition_id' => $tuition_id), 'tuition_application');
+        $data['student_data'] = get_any_table_row(array('student_id' => $data['tuition_data']['student_id']), 'student_information');
+        $data['student_pic']  = get_any_table_row(array('user_id' => $data['tuition_data']['student_id']), 'profile_picture');
 
-        // echo "<pre>"; print_r($data['this_app']); echo "</pre>"; exit();
+        // echo "<pre>"; print_r($data['student_pic']); echo "</pre>"; exit();
 
         // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
 

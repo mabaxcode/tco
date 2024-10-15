@@ -666,4 +666,9 @@ $(document).on('click', '.do-assign-class', function(e){
     });
 });
 
+function giving_class(student_id, tutor_id)
+{
+    
+}
+
 </script>
