@@ -483,6 +483,6 @@ class Admin extends CI_Controller {
         $student_id = $post['student_id'];
 
         echo "reset this student class";
-        echo "ok";
+        echo "oks";
     }
 }
