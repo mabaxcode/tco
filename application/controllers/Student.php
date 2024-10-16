@@ -74,6 +74,11 @@ class Student extends CI_Controller {
         	$this->form_validation->set_rules('phone_no', 'Phone Number', 'required');
         	$this->form_validation->set_rules('email', 'Email', 'required');
         	$this->form_validation->set_rules('address', 'Address', 'required');
+            $this->form_validation->set_rules('form', 'Form', 'required');
+            $this->form_validation->set_rules('school_name', 'School Name', 'required');
+            $this->form_validation->set_rules('school_address', 'School Address', 'required');
+            $this->form_validation->set_rules('guardian_name⁠', 'Guardian Name', 'required');
+            $this->form_validation->set_rules('guardian_phone', 'Guardian Phone', 'required');
 
         	if ($this->form_validation->run() == FALSE) {
         		
@@ -117,7 +122,13 @@ class Student extends CI_Controller {
         		'email' => $post['email'],
         		'address' => $post['address'],
         		'student_id' => $this->user_id,
+                'form' => $post['form'],
+                'guardian_name⁠' => $post[' guardian_name ⁠'],
+                'school_name' => $post[' school_name ⁠'],
+                'school_address' => $post[' school_address ⁠'],
         	);
+
+            echo "<pre>"; print_r($student_info); echo "</pre>"; exit;
 
         	$insert_picture = insert_any_table($picture, 'profile_picture');
         	$insert_student_info = insert_any_table($student_info, 'student_information');

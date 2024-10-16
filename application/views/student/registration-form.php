@@ -70,7 +70,24 @@
 									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Name</label>
 									<div class="col-lg-9 col-xl-6">
 										<input class="form-control form-control-lg" type="text" name="name" value="<?= $users['name']?>" />
-										<font color='red'><?php echo form_error('name'); ?></font>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Form</label>
+									<div class="col-lg-9 col-xl-6">
+										<input class="form-control form-control-lg" type="number" name="form" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* School Name</label>
+									<div class="col-lg-9 col-xl-6">
+										<input class="form-control form-control-lg" type="text" name="school_name" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* School Address</label>
+									<div class="col-lg-9 col-xl-6">
+										<textarea class="form-control" name="school_address"></textarea>
 									</div>
 								</div>
 								<div class="separator separator-dashed my-10"></div>
@@ -91,7 +108,6 @@
 												</span>
 											</div>
 											<input type="text" class="form-control form-control-lg" name="phone_no" placeholder="Phone" />
-											<font color='red'><?php echo form_error('phone_no'); ?></font>
 										</div>
 									</div>
 								</div>
@@ -112,6 +128,32 @@
 									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Address</label>
 									<div class="col-lg-9 col-xl-6">
 										<textarea class="form-control" name="address"></textarea>
+									</div>
+								</div>
+								<div class="separator separator-dashed my-10"></div>
+								<!--begin::Heading-->
+								<div class="row">
+									<div class="col-lg-9 col-xl-6 offset-xl-3">
+										<h3 class="font-size-h6 mb-5">Guardian Info:</h3>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Name</label>
+									<div class="col-lg-9 col-xl-6">
+										<input class="form-control form-control-lg" type="text" name="guardian_name⁠" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Phone</label>
+									<div class="col-lg-9 col-xl-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="la la-phone"></i>
+												</span>
+											</div> 
+											<input type="text" class="form-control form-control-lg" name="guardian_phone" placeholder="Phone" />
+										</div>
 									</div>
 								</div>
 								<div class="separator separator-dashed my-10"></div>
