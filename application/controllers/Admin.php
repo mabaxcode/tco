@@ -481,8 +481,5 @@ class Admin extends CI_Controller {
 
         $tuition_id = $post['tuition_id'];
         $student_id = $post['student_id'];
-
-        echo "reset this student class";
-        echo "oks";
     }
 }
