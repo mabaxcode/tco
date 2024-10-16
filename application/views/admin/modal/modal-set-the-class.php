@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 	<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title">New Class</h5>
@@ -8,26 +8,35 @@
 		</div>
 		<form class="form" id="assign-class-form-data">
 			<div class="modal-body">
-				<div class="form-group row">
-			    	<label for="example-search-input" class="col-3 col-form-label">Prefered Tutor</label>
-			    	<div class="col-9">
-			    		<input class="form-control" disabled name="name" type="text" value="<?= strtoupper($student_class['tutor_id']) ?>" />
-			    	</div>
-			   </div>
-			   <div class="form-group row">
-			    	<label for="example-search-input" class="col-3 col-form-label">Student Subject</label>
-			    	<div class="col-9">
-			    		<input class="form-control" disabled name="name" type="text" value="<?= get_ref_subject($student_class['subject_id']) ?>" />
-			    	</div>
-			   </div>
-               <div class="form-group row">
-			    	<label for="example-search-input" class="col-3 col-form-label">Student Class</label>
-			    	<div class="col-9">
-			    		<input class="form-control" disabled name="name" type="text" value="<?= get_class_ref($class['id']) ?>" />
-			    	</div>
-			   </div>
+			<div class="py-1">
+					<?/*
+					<div class="d-flex align-items-center mb-2">
+						<span class="font-weight-bold mr-2">Email:</span>
+						<a href="#" class=" text-hover-primary"><?= $student_data['email']?></a>
+					</div>
+					<div class="d-flex align-items-center mb-2">
+						<span class="font-weight-bold mr-2">Prefered Tutor :</span>
+						<span class=""><?= strtoupper($student_class['tutor_id']) ?></span>
+					</div>
+					<div class="d-flex align-items-center mb-2">
+						<span class="font-weight-bold mr-2">Student Class :</span>
+						<span class=""><?= get_class_ref($class['id']) ?></span>
+					</div>	
+					*/?>
+					
+					<div class="d-flex align-items-center mb-2">
+						<span class="font-weight-bold mr-2">Subject :</span>
+						<span class="font-weight-bold"><?= get_ref_subject($student_class['subject_id']) ?></span>
+					</div>
+					
+				</div>
 			   <input type="hidden" name="tutor_id" value="<?= $student_class['id']?>">
 			</div>
+			<?
+				$weekdays = getWeekendDates($tuition_application['approved_dt']);
+
+				echo "<pre>"; print_r($weekdays); echo "</pre>";
+			?>
 		</form>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

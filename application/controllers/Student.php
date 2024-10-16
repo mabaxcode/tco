@@ -126,6 +126,7 @@ class Student extends CI_Controller {
                 'guardian_name⁠' => $post['guardian_name⁠'],
                 'school_name' => $post['school_name'],
                 'school_address' => $post['school_address'],
+                'guardian_phone' => $post['guardian_phone'],
         	);
 
             // echo "<pre>"; print_r($student_info); echo "</pre>"; exit;

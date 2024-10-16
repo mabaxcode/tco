@@ -494,6 +494,7 @@ class Admin extends CI_Controller {
 
         $tutor_details = get_any_table_row(array('tutor_id' => $data['student_class']['tutor_id']), 'tutor');
 	    $data['class'] = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
+        $data['tuition_application'] = get_any_table_row(array('tuition_id' => $data['student_class']['tuition_id']), 'student_class');
 
         $this->load->view('admin/modal/modal-set-the-class', $data);
     }

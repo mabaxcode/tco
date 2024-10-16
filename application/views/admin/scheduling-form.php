@@ -29,7 +29,7 @@
 								<!--begin::Info-->
 								<div class="font-weight-bold text-dark-50 font-size-sm pb-6">
 									<?//= $student_data['address']?>
-									<a href="#" class="text-muted text-hover-primary"><?= $student_data['email']?></a>
+									<a href="#"><?= $student_data['email']?></a>
 								</div>
 								<!--end::Info-->
 							</div>
@@ -233,19 +233,9 @@
 
 													?>
 														<tr>
-															<td><?= $ref_subject['descs']?></td>
 															<td>
-																<div class="form-group">
-																	<select class="form-control form-control-sm" id="" onchange="giving_class('<?= $student_data['student_id']?>', this.value, '<?= $value?>');">
-																     	<option value="">Please select</option>
-																     	<? foreach ($tutors as $subtutor) { ?>
-																     			<option value="<?= $subtutor['tutor_id']?>" <? if($getClass['tutor_id'] == $subtutor['tutor_id']){echo "selected";}else{echo "";} ?>>
-																     				<?= strtoupper($subtutor['name'])?>
-																     				<?//= get_value_from_any_table('class', 'name', array('id' => $subtutor['assign_class'] ))?>
-																     			</option>
-																     	<? } ?>
-																    </select>
-																	<?	
+																<?= $ref_subject['descs']?>
+																<?	
 																	if ($getClass) {
 
 																		$tutor_details = get_any_table_row(array('tutor_id' => $getClass['tutor_id']), 'tutor');
@@ -267,6 +257,19 @@
 																		//echo "not set";
 																	}
 																?>
+															</td>
+															<td>
+																<div class="form-group">
+																	<select class="form-control form-control-sm" id="" onchange="giving_class('<?= $student_data['student_id']?>', this.value, '<?= $value?>');">
+																     	<option value="">Please select</option>
+																     	<? foreach ($tutors as $subtutor) { ?>
+																     			<option value="<?= $subtutor['tutor_id']?>" <? if($getClass['tutor_id'] == $subtutor['tutor_id']){echo "selected";}else{echo "";} ?>>
+																     				<?= strtoupper($subtutor['name'])?>
+																     				<?//= get_value_from_any_table('class', 'name', array('id' => $subtutor['assign_class'] ))?>
+																     			</option>
+																     	<? } ?>
+																    </select>
+																	
 																</div>
 															</td>
 															<td>

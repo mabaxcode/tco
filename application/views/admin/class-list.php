@@ -42,7 +42,7 @@
 							<!-- <td><?= $key['limit']?></td> -->
 							<td align="right">
 								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Class Details</a>
-								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Edit</a>
+								<!-- <a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Edit</a> -->
 								<a href="#" class="btn btn-sm btn-danger font-weight-bolder text-uppercase delete-class" data-init="<?= $key['id']?>">Delete</a>
 							</td>
 						</tr>

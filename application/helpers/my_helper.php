@@ -213,3 +213,26 @@ function get_value_from_any_table($tbl, $col, $where, $order_by = false)
         return false;
     }
 }
+
+function getWeekendDates($startDate, $days = 30) {
+    // Create a DateTime object from the provided start date
+    $date = new DateTime($startDate);
+    
+    // Array to hold weekend dates
+    $weekendDates = [];
+
+    // Loop through the next 30 days
+    for ($i = 0; $i < $days; $i++) {
+        // Check if the current day is a Friday, Saturday, or Sunday
+        $dayOfWeek = $date->format('N'); // N returns 1 (Monday) through 7 (Sunday)
+        
+        if ($dayOfWeek == 5 || $dayOfWeek == 6 || $dayOfWeek == 7) {
+            $weekendDates[] = $date->format('Y-m-d');
+        }
+        
+        // Move to the next day
+        $date->modify('+1 day');
+    }
+
+    return $weekendDates;
+}
