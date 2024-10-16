@@ -747,4 +747,26 @@ $(document).on('click', '.reset-student-class', function(e){
     });
 });
 
+
+$(document).on('click', '.set-the-class-slot', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/set_the_class_slot_modal',
+        type: "POST",
+        data:{id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
+
 </script>

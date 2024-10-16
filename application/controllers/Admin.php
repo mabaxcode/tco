@@ -481,5 +481,20 @@ class Admin extends CI_Controller {
 
         $tuition_id = $post['tuition_id'];
         $student_id = $post['student_id'];
+
+    }
+
+    function set_the_class_slot_modal($data=false)
+    {
+        $id = $this->input->post('id');
+
+        $data['student_class'] = get_any_table_row(array('id' => $id), 'student_class');
+        //$data['class']       = get_any_table_array(array('status' => '1'), 'class');
+        //echo "<pre>"; print_r($data['student_class']); echo "</pre>";
+
+        $tutor_details = get_any_table_row(array('tutor_id' => $data['student_class']['tutor_id']), 'tutor');
+	    $data['class'] = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
+
+        $this->load->view('admin/modal/modal-set-the-class', $data);
     }
 }

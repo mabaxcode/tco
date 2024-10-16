@@ -212,8 +212,8 @@
 											<thead class="table table-striped">
 												<tr>
 													<th>Subject</th>
-													<th>Tutor</th>
-													<th>Class Name</th>
+													<th>Tutor / Class</th>
+													<th>Action</th>
 													<!-- <th>Date/Time</th> -->
 												</tr>
 										    </thead>
@@ -245,25 +245,40 @@
 																     			</option>
 																     	<? } ?>
 																    </select>
-																</div>
-															</td>
-															<td>
-																
-																<!-- load class -->
-																<?	
+																	<?	
 																	if ($getClass) {
 
 																		$tutor_details = get_any_table_row(array('tutor_id' => $getClass['tutor_id']), 'tutor');
 																		$classDetail = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
 
-																		// echo $classDetail['name'];
+																		if($getClass['tutor_id'] == 0){
+																			echo "<br><font color='red'><b>Tutor is required</b></font>";
+																		} else {
+																			// echo $classDetail['name'];
+																			echo "<br>";
+																			echo "<span class='label label-inline font-weight-bold label-info'>".$classDetail['name']."</span>";
+																		}
 
-																		echo "<span class='label label-inline font-weight-bold label-info'>".$classDetail['name']."</span>";
+																		
+
+																		
 
 																	} else {
 																		//echo "not set";
 																	}
 																?>
+																</div>
+															</td>
+															<td>
+																<? if($getClass){ 
+																		if($getClass['tutor_id'] <> 0){ ?>
+																			<a class='btn btn-info btn-sm set-the-class-slot' data-init="<?= $getClass['id']?>">Set Class Slot</a>
+																		<? } else {
+
+																		}
+																} ?>
+																
+																
 
 															</td>
 														</tr>
@@ -276,7 +291,7 @@
 									</div>
 									<input type="hidden" id="t-id" value="<?= $tuition_data['tuition_id']?>">
 									<div class="card-footer" align="right">
-									   <button type="reset" class="btn btn-primary mr-2">Generate Schedule For 1 Month</button>
+									   <button type="reset" class="btn btn-secondary mr-2">Generate Timetable</button>
 									   <button type="reset" class="btn btn-danger reset-student-class" data-init="<?= $tuition_data['tuition_id']?>" data-studentid="<?= $student_data['student_id']?>">Reset</button>
 									</div>
 							</form>
