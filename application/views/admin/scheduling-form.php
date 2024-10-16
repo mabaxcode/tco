@@ -58,7 +58,7 @@
 									</div>
 									<div class="d-flex align-items-center justify-content-between mb-2">
 										<span class="font-weight-bold mr-2">Guardian's name:</span>
-										<span class="text-muted"><?= $student_data['guardian_name']?></span>
+										<span class="text-muted"><?= $student_data['guardian_name⁠']?></span>
 									</div>
 									<div class="d-flex align-items-center justify-content-between mb-2">
 										<span class="font-weight-bold mr-2">Guardian's Phone:</span>
@@ -213,7 +213,7 @@
 												<tr>
 													<th>Subject</th>
 													<th>Tutor</th>
-													<th>Class</th>
+													<th>Class Name</th>
 													<!-- <th>Date/Time</th> -->
 												</tr>
 										    </thead>
@@ -228,15 +228,18 @@
 													# get tutor based on subject
 													$tutors = get_any_table_array(array('subject' => $value, 'assign_class !=' => '0'), 'tutor');
 
+													$where = array('tuition_id' => $tuition_data['tuition_id'], 'student_id' => $student_data['student_id'], 'subject_id' => $value );
+													$getClass = get_any_table_row($where, 'student_class');
+
 													?>
 														<tr>
 															<td><?= $ref_subject['descs']?></td>
 															<td>
 																<div class="form-group">
-																	<select class="form-control form-control-sm" id="" onchange="giving_class('<?= $student_data['student_id']?>', this.value);">
+																	<select class="form-control form-control-sm" id="" onchange="giving_class('<?= $student_data['student_id']?>', this.value, '<?= $value?>');">
 																     	<option value="">Please select</option>
 																     	<? foreach ($tutors as $subtutor) { ?>
-																     			<option value="<?= $subtutor['tutor_id']?>">
+																     			<option value="<?= $subtutor['tutor_id']?>" <? if($getClass['tutor_id'] == $subtutor['tutor_id']){echo "selected";}else{echo "";} ?>>
 																     				<?= strtoupper($subtutor['name'])?>
 																     				<?//= get_value_from_any_table('class', 'name', array('id' => $subtutor['assign_class'] ))?>
 																     			</option>
@@ -244,7 +247,25 @@
 																    </select>
 																</div>
 															</td>
-															<td></td>
+															<td>
+																
+																<!-- load class -->
+																<?	
+																	if ($getClass) {
+
+																		$tutor_details = get_any_table_row(array('tutor_id' => $getClass['tutor_id']), 'tutor');
+																		$classDetail = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
+
+																		// echo $classDetail['name'];
+
+																		echo "<span class='label label-inline font-weight-bold label-info'>".$classDetail['name']."</span>";
+
+																	} else {
+																		//echo "not set";
+																	}
+																?>
+
+															</td>
 														</tr>
 													<?
 												}
@@ -253,10 +274,10 @@
 										    </tbody>
 										</table>
 									</div>
-
+									<input type="hidden" id="t-id" value="<?= $tuition_data['tuition_id']?>">
 									<div class="card-footer" align="right">
-									   <button type="reset" class="btn btn-primary mr-2">Generate Scheduling</button>
-									   <button type="reset" class="btn btn-warning">Cancel</button>
+									   <button type="reset" class="btn btn-primary mr-2">Generate Schedule For 1 Month</button>
+									   <button type="reset" class="btn btn-danger reset-student-class" data-init="<?= $tuition_data['tuition_id']?>" data-studentid="<?= $student_data['student_id']?>">Reset</button>
 									</div>
 							</form>
 						</div>

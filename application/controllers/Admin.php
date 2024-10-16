@@ -444,4 +444,42 @@ class Admin extends CI_Controller {
 
         echo encode($response);
     }
+
+    function giving_the_class($data=false)
+    {
+        $post = $this->input->post();
+
+        $student_id     = $post['student_id'];
+        $tutor_id       = $post['tutor_id'];
+        $subject_id     = $post['subject_id'];
+        $tuition_id     = $post['tuition_id'];
+
+        $where = array('student_id' => $student_id, 'subject_id' => $subject_id );
+
+        $is_exist = get_any_table_row($where, 'student_class');
+
+        if ($is_exist == true) {
+            # update
+            $update = array('tutor_id' => $tutor_id);
+            update_any_table($update, $where, 'student_class');
+        } else {
+            $insert = array('student_id' => $student_id, 'tutor_id' => $tutor_id, 'subject_id' => $subject_id, 'tuition_id' => $tuition_id);
+            insert_any_table($insert, 'student_class');
+        }
+
+        # get class name based on tutuor id
+        $latest_stud_class = get_any_table_row($where, 'student_class');
+
+        $response = array('status' => true );
+        echo encode($response);
+
+    }
+
+    function reset_student_class($data=false)
+    {
+        $post = $this->input->post();
+
+        $tuition_id = $post['tuition_id'];
+        $student_id = $post['student_id'];
+    }
 }

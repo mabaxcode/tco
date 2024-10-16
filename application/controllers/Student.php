@@ -123,12 +123,12 @@ class Student extends CI_Controller {
         		'address' => $post['address'],
         		'student_id' => $this->user_id,
                 'form' => $post['form'],
-                'guardian_name⁠' => $post[' guardian_name ⁠'],
-                'school_name' => $post[' school_name ⁠'],
-                'school_address' => $post[' school_address ⁠'],
+                'guardian_name⁠' => $post['guardian_name⁠'],
+                'school_name' => $post['school_name'],
+                'school_address' => $post['school_address'],
         	);
 
-            echo "<pre>"; print_r($student_info); echo "</pre>"; exit;
+            // echo "<pre>"; print_r($student_info); echo "</pre>"; exit;
 
         	$insert_picture = insert_any_table($picture, 'profile_picture');
         	$insert_student_info = insert_any_table($student_info, 'student_information');

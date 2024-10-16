@@ -666,9 +666,85 @@ $(document).on('click', '.do-assign-class', function(e){
     });
 });
 
-function giving_class(student_id, tutor_id)
-{
-    
+function giving_class(student_id, tutor_id, subject_id)
+{   
+
+    var tuition_id = $("#t-id").val();
+
+    $.ajax({
+        url: base_url + 'admin/giving_the_class',
+        type: "POST",
+        data:{student_id:student_id,tutor_id:tutor_id,subject_id:subject_id,tuition_id:tuition_id},
+        async: true,
+        dataType:"json",
+        success: function( response ){
+            // $('#load_student_class').html(response.result);
+            if (response.status == true) {
+                location.reload();
+            }
+            
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
 }
+
+$(document).on('click', '.reset-student-class', function(e){
+    e.preventDefault();
+
+    var tuition_id = $(this).data('init');
+    var student_id = $(this).data('studentid');
+
+    Swal.fire({
+        title: "Are you sure want to reset ?",
+        // text: "This will be send to student",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Confirm"
+    }).then(function(result) {
+        if (result.value) {
+           
+            $.ajax({
+                url: base_url + 'admin/reset_student_class',
+                type: "POST",
+                data: {student_id:student_id,tuition_id:tuition_id},
+                async: true,
+                dataType:"json",
+                success: function( response ){
+                    if (response.status == true) {
+                        Swal.fire({
+                            text: "Class successfullyy reset",
+                            icon: "success",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then((function(t) {
+                            if (t.isConfirmed) {
+                                // $("#modal_student_regform").modal('hide');
+                                location.reload();
+                            }
+                        }))
+                    } else {
+                        Swal.fire({
+                            text: response.msg,
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        })
+                    }
+                },
+                error: function(data){
+                    // console.log(data);
+                },
+            });
+        }
+    });
+});
 
 </script>
