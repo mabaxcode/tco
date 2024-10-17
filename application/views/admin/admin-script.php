@@ -768,5 +768,51 @@ $(document).on('click', '.set-the-class-slot', function(e){
     });
 });
 
+function set_the_class_slot(time, id)
+{
+    $.ajax({
+        url: base_url + 'admin/set_the_class_time',
+        type: "POST",
+        data:{time:time,id:id},
+        async: true,
+        dataType:"json",
+        success: function( response ){
+            if (response.status == true) {
+                // location.reload();
+                iziToast.success({
+                    // title: 'success',
+                    message: "Data Successfully Saved !",
+                    transitionIn: 'bounceInLeft',
+                    position: 'topCenter',
+                });
+            }
+            
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+}
+
+$(document).on('click', '.generate-timetable', function(e){
+    e.preventDefault();
+
+    var tuition_id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/check_all_slot_is_set',
+        type: "POST",
+        data:{tuition_id:tuition_id},
+        async: true,
+        dataType:"json",
+        success: function( response ){
+            
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+});
+
 
 </script>

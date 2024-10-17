@@ -212,7 +212,7 @@
 											<thead class="table table-striped">
 												<tr>
 													<th>Subject</th>
-													<th>Tutor / Class</th>
+													<th>Tutor</th>
 													<th>Action</th>
 													<!-- <th>Date/Time</th> -->
 												</tr>
@@ -275,7 +275,7 @@
 															<td>
 																<? if($getClass){ 
 																		if($getClass['tutor_id'] <> 0){ ?>
-																			<a class='btn btn-info btn-sm set-the-class-slot' data-init="<?= $getClass['id']?>">Set Class Slot</a>
+																			<a class='btn btn-info btn-sm set-the-class-slot' data-init="<?= $getClass['id']?>">Available Slot</a>
 																		<? } else {
 
 																		}
@@ -294,7 +294,7 @@
 									</div>
 									<input type="hidden" id="t-id" value="<?= $tuition_data['tuition_id']?>">
 									<div class="card-footer" align="right">
-									   <button type="reset" class="btn btn-secondary mr-2">Generate Timetable</button>
+									   <button type="reset" class="btn btn-secondary mr-2 generate-timetable" data-init="<?= $tuition_data['tuition_id']?>">Generate Timetable</button>
 									   <button type="reset" class="btn btn-danger reset-student-class" data-init="<?= $tuition_data['tuition_id']?>" data-studentid="<?= $student_data['student_id']?>">Reset</button>
 									</div>
 							</form>

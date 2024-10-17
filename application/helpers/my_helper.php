@@ -236,3 +236,14 @@ function getWeekendDates($startDate, $days = 30) {
 
     return $weekendDates;
 }
+
+function getDay($date)
+{
+    // Create a DateTime object from the given date
+    $date = new DateTime($date); // Replace with your desired date
+
+    // Get the day of the week
+    $dayOfWeek = $date->format('l'); // 'l' returns the full day name (e.g., "Monday", "Tuesday")
+
+    return $dayOfWeek;
+}

@@ -470,6 +470,10 @@ class Admin extends CI_Controller {
         # get class name based on tutuor id
         $latest_stud_class = get_any_table_row($where, 'student_class');
 
+        # delete back if slot has been set to previous tutor
+        $where_slot = array('student_id' => $student_id, 'subject_id' => $subject_id, 'tuition_id' => $tuition_id);
+        delete_any_table($where_slot, 'student_timetable');
+
         $response = array('status' => true );
         echo encode($response);
 
@@ -496,6 +500,72 @@ class Admin extends CI_Controller {
 	    $data['class'] = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
         $data['tuition_application'] = get_any_table_row(array('tuition_id' => $data['student_class']['tuition_id']), 'student_class');
 
+
+        $weekdays = getWeekendDates($data['tuition_application']['approved_dt']);
+
+        foreach($weekdays as $date => $val){
+            $insert = array(
+                'student_id' => $data['tuition_application']['student_id'],
+                'tutor_id' => $data['student_class']['tutor_id'],
+                'class_id' => $tutor_details['assign_class'],
+                'class_dt' => $val,
+                'subject_id' => $data['student_class']['subject_id'],
+                'status' => '1',
+                'tuition_id' => $data['student_class']['tuition_id'],
+            );
+
+            $where_timetable = array(
+                'student_id' => $data['tuition_application']['student_id'],
+                'tutor_id' => $data['student_class']['tutor_id'],
+                'class_id' => $tutor_details['assign_class'],
+                'class_dt' => $val,
+                'subject_id' => $data['student_class']['subject_id'],
+                'tuition_id' => $data['student_class']['tuition_id'],
+            );
+
+            $check = get_any_table_row($where_timetable, 'student_timetable');
+
+            if($check == false){
+                insert_any_table($insert, 'student_timetable');
+            }
+
+            
+        }
+
+        $where = array(
+            'student_id' => $data['tuition_application']['student_id'],
+            'tutor_id' => $data['student_class']['tutor_id'],
+            'class_id' => $tutor_details['assign_class']
+        );
+
+        $data['timetable'] = get_any_table_array($where, 'student_timetable');
+
         $this->load->view('admin/modal/modal-set-the-class', $data);
+    }
+
+    function set_the_class_time($data=false)
+    {
+        $id = $this->input->post('id');
+        $time = $this->input->post('time');
+
+        $update = array('class_time' => $time);
+        $where = array('id' => $id);
+
+        update_any_table($update, $where, 'student_timetable');
+        echo encode(array('status' => true));
+    }
+
+    function check_all_slot_is_set($data=false)
+    {
+        $tuition_id = $this->input->post('tuition_id'); 
+
+        # get all subject in this tuition application
+        $where = array('tuition_id' => $tuition_id);
+        $tuition_application = get_any_table_array($where, 'tuition_application');
+
+        $subjects = $tuition_application['subjects'];
+
+        
+
     }
 }
