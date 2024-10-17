@@ -806,12 +806,87 @@ $(document).on('click', '.generate-timetable', function(e){
         async: true,
         dataType:"json",
         success: function( response ){
+            console.log(response);
+            if(response.status == false)
+            {
+                Swal.fire({
+                    text: response.msg,
+                    icon: "warning",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then((function(t) {
+                    if (t.isConfirmed) {
+                        location.reload();
+                    }
+                }))
+            } else {
+                Swal.fire({
+                    title: "Are you sure?",
+                    // text: "This will be send to student",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, Confirm"
+                }).then(function(result) {
+                    if (result.value) {
+                    
+                        $.ajax({
+                            url: base_url + 'admin/do_generate_timetable',
+                            type: "POST",
+                            data: {tuition_id:tuition_id},
+                            async: true,
+                            dataType:"json",
+                            success: function( response ){
+                                if (response.status == true) {
+                                    Swal.fire({
+                                        text: "Timetable successfullyy generate",
+                                        icon: "success",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then((function(t) {
+                                        if (t.isConfirmed) {
+                                            window.location.href = "<?php echo base_url('admin/timetable'); ?>";
+                                        }
+                                    }))
+                                } else {
+                                    Swal.fire({
+                                        text: response.msg,
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    })
+                                }
+                            },
+                            error: function(data){
+                                // console.log(data);
+                            },
+                        });
+                    }
+                });
+            }
             
         },
         error: function(data){
             // console.log(data);
         },
     });
+});
+
+$(document).on('click', '.close-modal-class-slot', function(e){
+    e.preventDefault();
+    $("#modal_student_regform").modal('hide');
+    location.reload();
+    // setTimeout(function() {
+        
+    // }, 3000);
 });
 
 

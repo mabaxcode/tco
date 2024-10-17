@@ -255,6 +255,7 @@
 
 																	} else {
 																		//echo "not set";
+																		echo "<br><font color='red'><b>Tutor is required</b></font>";
 																	}
 																?>
 															</td>
@@ -274,12 +275,31 @@
 															</td>
 															<td>
 																<? if($getClass){ 
+																		
 																		if($getClass['tutor_id'] <> 0){ ?>
 																			<a class='btn btn-info btn-sm set-the-class-slot' data-init="<?= $getClass['id']?>">Available Slot</a>
-																		<? } else {
 
+																			<?  
+																				$whereClassSlot = array('student_id' => $student_data['student_id'], 'subject_id' => $value, 'tuition_id' => $tuition_data['tuition_id'], 'class_time' => '');
+																				$classSlotComplete = get_any_table_row($whereClassSlot, 'student_timetable');
+
+																				if($classSlotComplete == true){
+																					echo "<font color='red'><b>Class Slot Not Complete</b></font>";
+																				} else {
+																					echo '<i class="flaticon2-correct text-danger font-size-h5"></i>';
+																				}
+																			?>
+
+																			
+
+																		<? } else {
+																			
 																		}
-																} ?>
+																} else {
+																	//$generateBtn = false;
+																	//echo "<font color='red'><b>Please select tutor</b></font>";
+																	
+																}?>
 																
 																
 

@@ -539,6 +539,11 @@ class Admin extends CI_Controller {
         );
 
         $data['timetable'] = get_any_table_array($where, 'student_timetable');
+        $data['student_id'] = $data['tuition_application']['student_id'];
+
+        $data['getOthersSlot'] = get_any_table_array(array('student_id' => $data['student_id'], 'tuition_id' => $data['student_class']['tuition_id']), 'student_timetable');
+
+        //echo "<pre>"; print_r($data['getOthersSlot']); echo "</pre>";
 
         $this->load->view('admin/modal/modal-set-the-class', $data);
     }
@@ -556,16 +561,116 @@ class Admin extends CI_Controller {
     }
 
     function check_all_slot_is_set($data=false)
-    {
+    {   
+        $slot = array();
         $tuition_id = $this->input->post('tuition_id'); 
 
         # get all subject in this tuition application
         $where = array('tuition_id' => $tuition_id);
-        $tuition_application = get_any_table_array($where, 'tuition_application');
+        $tuition_application = get_any_table_row($where, 'tuition_application');
 
         $subjects = $tuition_application['subjects'];
 
-        
+        $subject_arr = explode("|",$subjects);
+		foreach ($subject_arr as $val => $value) {
 
+            # check all tutor are selected
+                $whereStudentClass = array('tuition_id' => $tuition_id, 'student_id' => $tuition_application['student_id'], 'subject_id' => $value);
+                $getThisStudentClass = get_any_table_row($whereStudentClass, 'student_class');
+
+                if($getThisStudentClass == false)
+                {
+                    #marked as student class not set yet
+                    $slot = array('not-complete');
+                } else {
+
+                    # check tutor id must not = 0
+                    if($getThisStudentClass['tutor_id'] == '0'){
+                        $slot = array('not-complete');
+                    }else{
+                        $slot = array('complete');
+                    }
+                }
+
+            # check time slot is set
+                # check all is slot is set
+                $whereSlot = array('subject_id' => $value, 'tuition_id' => $tuition_id, 'student_id' => $tuition_application['student_id']);
+
+                # if not exist set to false
+                $getThisSlot = get_any_table_row($whereSlot, 'student_timetable');
+
+                if($getThisSlot == false)
+                {
+                    $slot = array('not-complete');
+                } else {
+
+                    # class time must be set
+                    $whereSlotTime = array('class_time' => ' ', 'tuition_id' => $tuition_id, 'student_id' => $tuition_application['student_id']);
+                    $getThisSlotTime = get_any_table_row($whereSlotTime, 'student_timetable');
+
+                    if($getThisSlotTime == true)
+                    {
+                        $slot = array('not-complete');
+                    } else {
+                        $slot = array('complete');
+                    }
+
+                }
+
+        }
+
+        if (in_array("not-complete", $slot)) {
+            $response = array('status' => false, 'msg' => 'Please complete the required fields');
+        } else {
+            $response = array('status' => true, 'msg' => 'Success');
+        }
+
+        echo encode($response);
+    }
+
+    function do_generate_timetable($data=false)
+    {
+        $tuition_id = $this->input->post('tuition_id');
+
+        $update = array('time_table' => '1', 'internal_stage' => 'COMPLETE');
+        $where = array('tuition_id' => $tuition_id);
+        $update_timetable = update_any_table($update, $where, 'tuition_application');
+
+        $response = array('status' => true);
+        echo encode($response);
+    }
+
+    function timetable($data=false)
+    {
+        $data['content']     = 'admin/student-timetable-list';
+        $data['page_title']  = 'Student Timetable';
+        $data['add_script']  = 'admin/admin-script';
+
+        $data['tuition_apps'] = get_any_table_array(array('paid' => '1', 'stage' => 'PROCESSING', 'internal_stage' => 'COMPLETE', 'time_table' =>'1'), 'tuition_application');
+
+        // echo "<pre>"; print_r($data['tuition_apps']); echo "</pre>"; exit();
+
+        // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
+
+        $this->load->view('admin/admin-dashboard', $data);
+    }
+
+    function view_timetable($tuition_id)
+    {
+        $data['content']     = 'admin/timetable-view';
+        $data['page_title']  = 'Timetable';
+        $data['add_script']  = 'admin/admin-script';
+
+        $data['tuition_data'] = get_any_table_row(array('tuition_id' => $tuition_id), 'tuition_application');
+        $data['student_data'] = get_any_table_row(array('student_id' => $data['tuition_data']['student_id']), 'student_information');
+        $data['student_pic']  = get_any_table_row(array('user_id' => $data['tuition_data']['student_id']), 'profile_picture');
+
+        // echo "<pre>"; print_r($data['student_pic']); echo "</pre>"; exit();
+
+        $data['timetables'] = get_any_table_array(array('tuition_id' => $tuition_id), 'student_timetable');
+
+        // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
+
+        $this->load->view('admin/admin-dashboard', $data);
     }
 }

@@ -247,3 +247,23 @@ function getDay($date)
 
     return $dayOfWeek;
 }
+
+function checking_slot($date, $time, $student_id, $tuition_id)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('id');
+    $tco->db->where('class_dt', $date);
+    $tco->db->where('class_time', $time);
+    $tco->db->where('student_id', $student_id);
+    $tco->db->where('tuition_id', $tuition_id);
+    $query = $tco->db->get('student_timetable');
+    
+
+    if ($query->num_rows() > 0) {
+        echo 'disabled';
+    } else {
+        //echo 'disabled';
+    }
+}

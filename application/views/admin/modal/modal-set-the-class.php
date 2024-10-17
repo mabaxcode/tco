@@ -2,7 +2,7 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title">New Class</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button type="button" class="close close-modal-class-slot">
 				<i aria-hidden="true" class="ki ki-close"></i>
 			</button>
 		</div>
@@ -95,13 +95,13 @@
 								<select onchange="set_the_class_slot(this.value, '<?= $date['id']?>');" class="form-control">
 									<option value=''>Please Select</option>
 									<? if( $day == 'Friday' || $day == 'Saturday' ){ ?>
-									<option value='9:30 AM' <? if($date['class_time'] == '9:30 AM'){echo "selected";} ?> >9:30 AM</option>
-									<option value='10:30 AM' <? if($date['class_time'] == '10:30 AM'){echo "selected";} ?> >10:30 AM</option>
-									<option value='11:30 AM' <? if($date['class_time'] == '11:30 AM'){echo "selected";} ?> >11:30 AM</option>
+									<option value='9:30 AM' <? if($date['class_time'] == '9:30 AM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'9:30 AM', $date['student_id'], $date['tuition_id']); ?> >9:30 AM</option>
+									<option value='10:30 AM' <? if($date['class_time'] == '10:30 AM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'10:30 AM', $date['student_id'], $date['tuition_id']); ?> >10:30 AM</option>
+									<option value='11:30 AM' <? if($date['class_time'] == '11:30 AM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'11:30 AM', $date['student_id'], $date['tuition_id']); ?> >11:30 AM</option>
 									<? } else { ?>
-									<option value='8:30 PM' <? if($date['class_time'] == '8:30 PM'){echo "selected";} ?> >8:30 PM</option>
-									<option value='9:30 PM' <? if($date['class_time'] == '9:30 PM'){echo "selected";} ?> >9:30 PM</option>
-									<option value='10:30 PM' <? if($date['class_time'] == '10:30 PM'){echo "selected";} ?> >10:30 PM</option>
+									<option value='8:30 PM' <? if($date['class_time'] == '8:30 PM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'8:30 PM', $date['student_id'], $date['tuition_id']); ?> >8:30 PM</option>
+									<option value='9:30 PM' <? if($date['class_time'] == '9:30 PM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'9:30 PM', $date['student_id'], $date['tuition_id']); ?> >9:30 PM</option>
+									<option value='10:30 PM' <? if($date['class_time'] == '10:30 PM'){echo "selected";} ?> <?= checking_slot($date['class_dt'],'10:30 PM', $date['student_id'], $date['tuition_id']); ?> >10:30 PM</option>
 									<? } ?>
 								</select>
 							</td>
@@ -113,7 +113,7 @@
 				</div>
 		</form>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-secondary close-modal-class-slot">Close</button>
 		</div>
 	</div>
 </div>
