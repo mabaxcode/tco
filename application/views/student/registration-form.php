@@ -75,7 +75,16 @@
 								<div class="form-group row">
 									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Form</label>
 									<div class="col-lg-9 col-xl-6">
-										<input class="form-control form-control-lg" type="number" name="form" />
+										<!-- <input class="form-control form-control-lg" type="number" name="form" /> -->
+										<select name="form" class="form-control form-control-lg">
+												<option value="">Please Select</option>
+												<option value="1">Form 1</option>
+												<option value="2">Form 2</option>
+												<option value="3">Form 3</option>
+												<option value="4">Form 4</option>
+												<option value="5">Form 5</option>
+												<option value="7">SK RENDAH</option>
+										</select>
 									</div>
 								</div>
 								<div class="form-group row">

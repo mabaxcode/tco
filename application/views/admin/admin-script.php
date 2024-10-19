@@ -407,6 +407,9 @@ $(document).on('click', '.proceed-add-tutor', function(e){
 $(document).on('click', '.add-new-class', function(e){
     e.preventDefault();
 
+    // alert ('ss');
+    console.log('test');
+
     $.ajax({
         url: base_url + 'admin/add_new_class_modal',
         type: "POST",
@@ -888,6 +891,28 @@ $(document).on('click', '.close-modal-class-slot', function(e){
         
     // }, 3000);
 });
+
+$(document).on('click', '.view-class-details', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/view_class_details',
+        type: "POST",
+        data:{id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+
+});
+
 
 
 </script>

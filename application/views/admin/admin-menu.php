@@ -17,7 +17,7 @@
 						</svg><!--end::Svg Icon--></span>
 						<!--end::Svg Icon-->
 					</span>
-					<span class="menu-text">ADMIN HOME</span>
+					<span class="menu-text">Administrator</span>
 				</a>
 			</li>
 			<li class="menu-section">

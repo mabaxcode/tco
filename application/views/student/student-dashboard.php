@@ -94,6 +94,7 @@
 								<!--begin::Header Menu-->
 								<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
 									<!--begin::Header Nav-->
+									<?/*
 									<ul class="menu-nav">
 										<li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here menu-item-active" data-menu-toggle="click" aria-haspopup="true">
 											<a href="javascript:;" class="menu-link menu-toggle">
@@ -102,6 +103,7 @@
 											</a>
 										</li>
 									</ul>
+									*/?>
 									<!--end::Header Nav-->
 								</div>
 								<!--end::Header Menu-->
@@ -167,6 +169,7 @@
 								</div>
 								<!--end::Search-->
 								<!--begin::Notifications-->
+								<?/*
 								<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
@@ -623,8 +626,10 @@
 									</div>
 									<!--end::Dropdown-->
 								</div>
+								*/?>
 								<!--end::Notifications-->
 								<!--begin::Quick Actions-->
+								<?/*
 								<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
@@ -736,6 +741,7 @@
 									</div>
 									<!--end::Dropdown-->
 								</div>
+								*/?>
 								<!--end::Quick Actions-->
 								<!--begin::User-->
 								<div class="topbar-item">

@@ -30,7 +30,7 @@
 						</div>
 						<div class="d-flex align-items-center mb-2">
 							<span class="font-weight-bold mr-2">Tutor :</span>
-							<span class=""><?= strtoupper($student_class['tutor_id']) ?></span>
+							<span class=""><?= ucfirst(get_ref_tutor($student_class['tutor_id'])); ?></span>
 						</div>
 						
 					</div>

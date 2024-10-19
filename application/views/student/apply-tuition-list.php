@@ -78,7 +78,7 @@
 				<!-- notice -->
 				<div class="alert alert-custom alert-notice alert-light-primary fade show" role="alert">
 				    <div class="alert-icon"><i class="flaticon-info"></i></div>
-				    <div class="alert-text">Note ! You dont have any tuition application yet. To apply Tuition <strong>Click Apply New</strong>.</div>
+				    <div class="alert-text"><b>Greats ! </b>Lets apply for your first <b>Tuition Application Now</b></div>
 				</div>
 
 			<? endif; ?>

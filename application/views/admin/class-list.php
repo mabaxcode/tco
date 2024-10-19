@@ -5,7 +5,7 @@
 				<h3 class="card-label">List Of Class</h3>
 			</div>
 			<div class="card-toolbar">
-				<a href="#" class="btn btn-primary font-weight-bolder add-new-class">
+				<a href="javascript:void(0);" class="btn btn-primary font-weight-bolder add-new-class">
 				<span class="svg-icon svg-icon-md">
 					<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -26,8 +26,8 @@
 					<tr>
 						<th>No</th>
 						<th>Class Name</th>
-						<!-- <th>Tutor</th> -->
-						<!-- <th>Limit</th> -->
+						<th>Bill. Student</th>
+						<th>Bill. Tutor</th>
 						<th style="text-align: right;">Action</th>
 					</tr>
 				</thead>
@@ -38,18 +38,31 @@
 						<tr>
 							<td><?= $no++;?></td>
 							<td><?= $key['name']?></td>
-							<!-- <td>tutir</td> -->
-							<!-- <td><?= $key['limit']?></td> -->
+							<td>
+								<!-- bill. student -->
+								<?= $bill_student = count_student_inClass($key['id']); ?>
+							</td>
+							<td><?= $bill_tutor = count_tutor_inClass($key['id']); ?></td>
 							<td align="right">
-								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Class Details</a>
-								<!-- <a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Edit</a> -->
-								<a href="#" class="btn btn-sm btn-danger font-weight-bolder text-uppercase delete-class" data-init="<?= $key['id']?>">Delete</a>
+								<?
+									if($bill_student == '0' && $bill_tutor == '0'){
+										$delete = true;
+									} else {
+										$delete = false;
+									}
+								?>
+								<a href="#" class="btn btn-sm btn-warning font-weight-bolder text-uppercase update-class" data-init="<?= $key['id']?>">Edit</a>
+								<a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase view-class-details" data-init="<?= $key['id']?>">View</a>
+								<? if($delete == true){ ?>
+								<button class="btn btn-sm btn-danger font-weight-bolder text-uppercase delete-class" data-init="<?= $key['id']?>">
+								<?//= ($delete == false) ? 'Delete' : "<i class='icon-1x text-dark-50 flaticon-lock'></i>"; ?>
+									Delete
+								</button>
+								<? } ?>
 							</td>
 						</tr>
 						<? } ?>
-					<? } else {
-							echo "<tr><td colspan='5'><center>No Record</center></td></tr>";
-					} ?>
+					<? } ?>
 				</tbody>
 			</table>
 			<!--end: Datatable-->

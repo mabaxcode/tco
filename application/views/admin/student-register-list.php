@@ -31,9 +31,7 @@
 							</td>
 						</tr>
 						<? } ?>
-					<? } else {
-							echo "<tr><td colspan='5'><center>No Record</center></td></tr>";
-					} ?>
+					<? } ?>
 				</tbody>
 			</table>
 			<!--end: Datatable-->

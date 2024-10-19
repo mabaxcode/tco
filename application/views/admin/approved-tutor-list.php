@@ -30,6 +30,7 @@
 						<th>Phone No.</th>
 						<th>Tutor's Class</th>
 						<th>Tutor's Subject</th>
+						<th>Status</th>
 						<th style="text-align: right;">Action</th>
 					</tr>
 				</thead>
@@ -54,15 +55,14 @@
 							<td>
 								<b><?= get_ref_subject($key['subject']); ?></b>
 							</td>
+							<td></td>
 							<td align="right">
 								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase view-tutor" data-init="<?= $key['tutor_id']?>">Details</a>
 								<a href="#" class="btn btn-sm btn-success font-weight-bolder text-uppercase assign-class" data-init="<?= $key['tutor_id']?>">Assign Class</a>
 							</td>
 						</tr>
 						<? } ?>
-					<? } else {
-							echo "<tr><td colspan='5'><center>No Record</center></td></tr>";
-					} ?>
+					<? } ?>
 				</tbody>
 			</table>
 			<!--end: Datatable-->

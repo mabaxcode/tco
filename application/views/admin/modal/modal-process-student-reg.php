@@ -48,7 +48,7 @@
 			    		<select class="custom-select form-control" id="decision-reg-student" required="">
 							<option value="">Please select</option>
 							<option value="1">Approved</option>
-							<option value="2">Reject</option>
+							<!-- <option value="2">Reject</option> -->
 						</select>
 						<p id="required-approval"></p>
 			    	</div>

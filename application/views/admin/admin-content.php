@@ -2,94 +2,35 @@
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
 		<div class="card-body">
-			<!--begin::Details-->
-			<div class="d-flex mb-9">
-				<!--begin: Pic-->
-				<div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
-					<div class="symbol symbol-50 symbol-lg-120">
-						<img src="assets/media/users/300_1.jpg" alt="image" />
-					</div>
-					<div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-						<span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
-					</div>
-				</div>
-				<!--end::Pic-->
-				<!--begin::Info-->
-				<div class="flex-grow-1">
-					<!--begin::Title-->
-					<div class="d-flex justify-content-between flex-wrap mt-1">
-						<div class="d-flex mr-3">
-							<a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3"><?= $users['name']?></a>
-							<a href="#"><i class="flaticon2-correct text-success font-size-h5"></i></a>
-						</div>
-					</div>
-					<!--end::Title-->
-					<!--begin::Content-->
-					<div class="d-flex flex-wrap justify-content-between mt-1">
-						<div class="d-flex flex-column flex-grow-1 pr-8">
-							<div class="d-flex flex-wrap mb-4">
-								<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-								<i class="flaticon2-new-email mr-2 font-size-lg"></i><?= $users['email']?></a>
-								<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-								<i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>
-									<?
-										switch ($users['user_type']) {
-											case '1':
-												echo "Tutor";
-												break;
-											case '2':
-												echo "Student";
-												break;
-											case '4':
-												echo "Admin";
-												break;
-											
-											default:
-												echo "Not Found User Type";
-												break;
-										}
-									?>
-								</a>
-								<!-- <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-								<i class="flaticon2-placeholder mr-2 font-size-lg"></i>Melbourne</a> -->
-							</div>
-							<span class="font-weight-bold text-dark-50">Your account registration is <font color='red'><b>NOT COMPLETE</b></font> yet.</span>
-							<span class="font-weight-bold text-dark-50">Please complete your account registration by click button <font color="blue"><b>COMPLETE REGISTRATION</b></font> to apply any Tuition Course</span>
-						</div>
-					</div>
-					<!--end::Content-->
-				</div>
-				<!--end::Info-->
-			</div>
-			<!--end::Details-->
-			<div class="separator separator-solid"></div>
+			<!-- <div class="separator separator-solid"></div> -->
 			
 				<div class="d-flex align-items-center flex-wrap mt-8">
 					<!--begin::Item-->
 					<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 						<span class="mr-4">
-							<i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
+							<i class="fa fa-graduation-cap icon-3x" aria-hidden="true"></i>
 						</span>
 						<div class="d-flex flex-column text-dark-75">
-							<span class="font-weight-bolder font-size-sm">Earnings</span>
+							<span class="font-weight-bolder font-size-sm">Total Students</span>
 							<span class="font-weight-bolder font-size-h5">
-							<span class="text-dark-50 font-weight-bold">$</span>249,500</span>
+							<span class="text-dark-50 font-weight-bold">100</span>
 						</div>
 					</div>
 					<!--end::Item-->
 					<!--begin::Item-->
 					<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 						<span class="mr-4">
-							<i class="flaticon-confetti display-4 text-muted font-weight-bold"></i>
+							<i class="icon-3x text-dark-50 flaticon-users-1"></i>
 						</span>
 						<div class="d-flex flex-column text-dark-75">
-							<span class="font-weight-bolder font-size-sm">Expenses</span>
+							<span class="font-weight-bolder font-size-sm">Total Tutors</span>
 							<span class="font-weight-bolder font-size-h5">
-							<span class="text-dark-50 font-weight-bold">$</span>164,700</span>
+							<span class="text-dark-50 font-weight-bold">200</span>
 						</div>
 					</div>
 					<!--end::Item-->
 					<!--begin::Item-->
+					<?/*
 					<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 						<span class="mr-4">
 							<i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
@@ -100,6 +41,7 @@
 							<span class="text-dark-50 font-weight-bold">$</span>782,300</span>
 						</div>
 					</div>
+					*/?>
 					<!--end::Item-->
 					<!--begin::Item-->
 					<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
@@ -107,8 +49,8 @@
 							<i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
 						</span>
 						<div class="d-flex flex-column flex-lg-fill">
-							<span class="text-dark-75 font-weight-bolder font-size-sm">73 Tasks</span>
-							<a href="#" class="text-primary font-weight-bolder">View</a>
+							<span class="text-dark-75 font-weight-bolder font-size-sm"><?= $total_tuition_request ?> Tuition Request</span>
+							<a href="<?= base_url('admin/tuition_application'); ?>" class="text-primary font-weight-bolder">View</a>
 						</div>
 					</div>
 					<!--end::Item-->
@@ -118,8 +60,8 @@
 							<i class="flaticon-chat-1 display-4 text-muted font-weight-bold"></i>
 						</span>
 						<div class="d-flex flex-column">
-							<span class="text-dark-75 font-weight-bolder font-size-sm">648 Comments</span>
-							<a href="#" class="text-primary font-weight-bolder">View</a>
+							<span class="text-dark-75 font-weight-bolder font-size-sm"><?= $total_tutor_request ?> Tutor Request</span>
+							<a href="<?= base_url('admin/tutor_application'); ?>" class="text-primary font-weight-bolder">View</a>
 						</div>
 					</div>
 					<!--end::Item-->
@@ -325,7 +267,89 @@
 				<!--begin::Body-->
 				<div class="card-body d-flex flex-column">
 					<div class="flex-grow-1">
-						<div id="kt_mixed_widget_14_chart" style="height: 200px"></div>
+						<!-- <div id="kt_mixed_widget_14_chart" style="height: 200px"></div> -->
+						<div class="card card-flush h-md-50 mb-5 mb-xl-10">
+							<!--begin::Header-->
+							<div class="card-header pt-5">
+								<!--begin::Title-->
+								<div class="card-title d-flex flex-column">
+									<!--begin::Info-->
+									<div class="d-flex align-items-center">
+										<!--begin::Currency-->
+										<span class="fs-4 fw-semibold text-gray-500 me-1 align-self-start">$</span>
+										<!--end::Currency-->
+										<!--begin::Amount-->
+										<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">69,700</span>
+										<!--end::Amount-->
+										<!--begin::Badge-->
+										<span class="badge badge-light-success fs-base">
+										<i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
+											<span class="path1"></span>
+											<span class="path2"></span>
+										</i>2.2%</span>
+										<!--end::Badge-->
+									</div>
+									<!--end::Info-->
+									<!--begin::Subtitle-->
+									<span class="text-gray-500 pt-1 fw-semibold fs-6">Projects Earnings in April</span>
+									<!--end::Subtitle-->
+								</div>
+								<!--end::Title-->
+							</div>
+							<!--end::Header-->
+							<!--begin::Card body-->
+							<div class="card-body pt-2 pb-4 d-flex flex-wrap align-items-center">
+								<!--begin::Chart-->
+								<div class="d-flex flex-center me-5 pt-2">
+									<div id="kt_card_widget_17_chart" style="min-width: 70px; min-height: 70px" data-kt-size="70" data-kt-line="11"></div>
+								</div>
+								<!--end::Chart-->
+								<!--begin::Labels-->
+								<div class="d-flex flex-column content-justify-center flex-row-fluid">
+									<!--begin::Label-->
+									<div class="d-flex fw-semibold align-items-center">
+										<!--begin::Bullet-->
+										<div class="bullet w-8px h-3px rounded-2 bg-success me-3"></div>
+										<!--end::Bullet-->
+										<!--begin::Label-->
+										<div class="text-gray-500 flex-grow-1 me-4">Leaf CRM</div>
+										<!--end::Label-->
+										<!--begin::Stats-->
+										<div class="fw-bolder text-gray-700 text-xxl-end">$7,660</div>
+										<!--end::Stats-->
+									</div>
+									<!--end::Label-->
+									<!--begin::Label-->
+									<div class="d-flex fw-semibold align-items-center my-3">
+										<!--begin::Bullet-->
+										<div class="bullet w-8px h-3px rounded-2 bg-primary me-3"></div>
+										<!--end::Bullet-->
+										<!--begin::Label-->
+										<div class="text-gray-500 flex-grow-1 me-4">Mivy App</div>
+										<!--end::Label-->
+										<!--begin::Stats-->
+										<div class="fw-bolder text-gray-700 text-xxl-end">$2,820</div>
+										<!--end::Stats-->
+									</div>
+									<!--end::Label-->
+									<!--begin::Label-->
+									<div class="d-flex fw-semibold align-items-center">
+										<!--begin::Bullet-->
+										<div class="bullet w-8px h-3px rounded-2 me-3" style="background-color: #E4E6EF"></div>
+										<!--end::Bullet-->
+										<!--begin::Label-->
+										<div class="text-gray-500 flex-grow-1 me-4">Others</div>
+										<!--end::Label-->
+										<!--begin::Stats-->
+										<div class="fw-bolder text-gray-700 text-xxl-end">$45,257</div>
+										<!--end::Stats-->
+									</div>
+									<!--end::Label-->
+								</div>
+								<!--end::Labels-->
+							</div>
+							<!--end::Card body-->
+						</div>
 					</div>
 					<div class="pt-5">
 						<p class="text-center font-weight-normal font-size-lg pb-7">Notes: Current sprint requires stakeholders

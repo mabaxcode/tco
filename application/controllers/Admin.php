@@ -24,6 +24,10 @@ class Admin extends CI_Controller {
 		$data['picture_data'] = get_any_table_row(array('user_id' => $this->user_id), 'profile_picture');
         $data['content']      = 'admin/admin-content';
 
+        # count
+        $data['total_tuition_request'] = $this->DbAdmin->total_tuition_request(); 
+        $data['total_tutor_request'] = $this->DbAdmin->total_tutor_request(); 
+
 		$this->load->view('admin/admin-dashboard', $data);
 	}
 
@@ -456,14 +460,18 @@ class Admin extends CI_Controller {
 
         $where = array('student_id' => $student_id, 'subject_id' => $subject_id );
 
+        $tutor_details = get_any_table_row(array('tutor_id' => $tutor_id), 'tutor');
+		$classDetail = get_any_table_row(array('id' => $tutor_details['assign_class'] ), 'class');
+        $class_id = $tutor_details['assign_class'];
+
         $is_exist = get_any_table_row($where, 'student_class');
 
         if ($is_exist == true) {
             # update
-            $update = array('tutor_id' => $tutor_id);
+            $update = array('tutor_id' => $tutor_id, 'class_id' => $class_id);
             update_any_table($update, $where, 'student_class');
         } else {
-            $insert = array('student_id' => $student_id, 'tutor_id' => $tutor_id, 'subject_id' => $subject_id, 'tuition_id' => $tuition_id);
+            $insert = array('student_id' => $student_id, 'tutor_id' => $tutor_id, 'subject_id' => $subject_id, 'tuition_id' => $tuition_id, 'class_id' => $class_id);
             insert_any_table($insert, 'student_class');
         }
 
@@ -632,7 +640,7 @@ class Admin extends CI_Controller {
     {
         $tuition_id = $this->input->post('tuition_id');
 
-        $update = array('time_table' => '1', 'internal_stage' => 'COMPLETE');
+        $update = array('time_table' => '1', 'internal_stage' => 'COMPLETE', 'stage' => 'ONGOING CLASS');
         $where = array('tuition_id' => $tuition_id);
         $update_timetable = update_any_table($update, $where, 'tuition_application');
 
@@ -667,10 +675,24 @@ class Admin extends CI_Controller {
 
         // echo "<pre>"; print_r($data['student_pic']); echo "</pre>"; exit();
 
-        $data['timetables'] = get_any_table_array(array('tuition_id' => $tuition_id), 'student_timetable');
+        $data['timetables'] = $this->DbAdmin->get_timetable($tuition_id);
 
         // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
 
         $this->load->view('admin/admin-dashboard', $data);
+    }
+
+    function view_class_details($data=false)
+    {   
+        $id = $this->input->post('id');
+        $data['class'] = get_any_table_row(array('id' => $id), 'class');
+
+        # student in this class
+        // count_student_inClass
+        $data['students'] = $this->DbAdmin->get_student_in_the_class($id);
+        $data['tutors'] = $this->DbAdmin->get_tutor_in_the_class($id);
+        // echo $data['students']; 
+
+        $this->load->view('admin/modal/modal-view-class-details', $data);
     }
 }

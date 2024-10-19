@@ -24,7 +24,16 @@ class Student extends CI_Controller {
 		$data['picture_data'] = get_any_table_row(array('user_id' => $this->user_id), 'profile_picture');
 
 		if ($data['users']['complete_register'] == 2) {
-			$data['content'] = 'student/student-content';
+            $tuition_data = get_any_table_row(array('student_id' => $this->user_id, 'internal_stage' => 'COMPLETE', 'time_table' => '1'), 'tuition_application');
+			if($tuition_data){
+                $data['timetable'] = true;
+                $data['timetables'] = $this->DbStudent->get_timetable($tuition_data['tuition_id']);
+            }else{
+                $data['timetable'] = false;
+            }
+
+            $data['content'] = 'student/student-content';
+            
 		} else {
 			$data['content'] = 'student/student-content-not-complete';
 		}
@@ -50,7 +59,7 @@ class Student extends CI_Controller {
 		// echo "<pre>"; print_r($post); echo "</pre>"; exit;
 
 		$config['upload_path']          = './uploads/user-img';
-        $config['allowed_types']        = 'gif|jpg|png';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = 9999;
         $config['max_width']            = 1024;
         $config['max_height']           = 768;
@@ -189,7 +198,31 @@ class Student extends CI_Controller {
 
     function apply_tuition_modal($data=false)
     {   
-        $data['subjects'] = get_any_table_array(array('active' => '1'), 'ref_subject');
+        $studentInfo = get_any_table_row(array('student_id' => $this->user_id), 'student_information');
+
+        //echo "<pre>"; print_r($studentInfo); echo "</pre>";
+
+        switch ($studentInfo['form']) {
+            case '1':
+            case '2':
+            case '3':
+                $type = '123';
+                break;
+            
+            case '4':
+            case '5':
+                $type = '45';
+                break;
+            case '7':
+                $type = '7';
+                break;    
+
+            default:
+                echo "Subject Type Not Found"; exit;
+                break;
+        }
+
+        $data['subjects'] = get_any_table_array(array('active' => '1', 'type' => $type), 'ref_subject');
         $this->load->view('student/modal/modal-apply-tuition', $data);
     }
 

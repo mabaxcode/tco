@@ -284,9 +284,19 @@
 																				$classSlotComplete = get_any_table_row($whereClassSlot, 'student_timetable');
 
 																				if($classSlotComplete == true){
-																					echo "<font color='red'><b>Class Slot Not Complete</b></font>";
+																					echo "<font color='red'><b>Please complete class slot</b></font>";
 																				} else {
-																					echo '<i class="flaticon2-correct text-danger font-size-h5"></i>';
+
+																					$whereClassSlot2 = array('student_id' => $student_data['student_id'], 'subject_id' => $value, 'tuition_id' => $tuition_data['tuition_id']);
+																					$classSlotComplete2 = get_any_table_row($whereClassSlot2, 'student_timetable');
+
+																					if($classSlotComplete2 == false){
+																						echo "<font color='red'><b>Please complete class slot</b></font>";
+																					} else {
+																						echo '<i class="flaticon2-correct text-danger font-size-h5"></i>';
+																					}
+
+																					
 																				}
 																			?>
 
@@ -298,6 +308,7 @@
 																} else {
 																	//$generateBtn = false;
 																	//echo "<font color='red'><b>Please select tutor</b></font>";
+																	// echo '<i class="flaticon2-correct text-danger font-size-h5"></i>';
 																	
 																}?>
 																

@@ -193,6 +193,23 @@ function get_class_ref($id)
     }
 }
 
+function get_ref_tutor($id)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->where(array('tutor_id' => $id));
+    $query = $tco->db->get('tutor');
+
+    if ($query->num_rows() > 0) {
+        $result = $query->row();
+        return $result->name;
+    } else {
+        return false;
+    }
+}
+
 function get_value_from_any_table($tbl, $col, $where, $order_by = false)
 {
     $tco = load_instance();
@@ -266,4 +283,56 @@ function checking_slot($date, $time, $student_id, $tuition_id)
     } else {
         //echo 'disabled';
     }
+}
+
+function current_date(){
+    $current_date = date("Y-m-d");
+    return $current_date;
+}
+
+function get_day_only($date)
+{
+    $day = date("d", strtotime($date));  // Extract the day (01-31)
+
+    return $day;
+}
+
+function get_month_only($date)
+{
+    $month_name = date("M", strtotime($date));
+    return $month_name;
+}
+
+function count_student_inClass($id)
+{   
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->from('student_class');
+    $tco->db->where('class_id', $id);
+    $tco->db->group_by('student_id');
+    $query = $tco->db->get();
+
+    //if ($query->num_rows() > 0) {
+        $row_count = $query->num_rows();
+        return $row_count;
+    // } else {
+    //     return '0';
+    // }
+}
+
+function count_tutor_inClass($class_id)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->from('tutor');
+    $tco->db->where('assign_class', $class_id);
+    $query = $tco->db->get();
+
+    $row_count = $query->num_rows();
+    return $row_count;
+    
 }

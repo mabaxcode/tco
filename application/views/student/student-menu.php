@@ -17,7 +17,7 @@
 						</svg><!--end::Svg Icon--></span>
 						<!--end::Svg Icon-->
 					</span>
-					<span class="menu-text">STUDENT DASHBOARD</span>
+					<span class="menu-text">Student</span>
 				</a>
 			</li>
 			<li class="menu-section">
@@ -115,7 +115,7 @@
 			</li>
 			<? } ?>
 			<li class="menu-section">
-				<h4 class="menu-text">CRUD</h4>
+				<h4 class="menu-text">APPLICATION</h4>
 				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 			</li>
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -146,7 +146,7 @@
 							</a>
 						</li>
 						<li class="menu-item" aria-haspopup="true">
-							<a href="layout/themes/header-dark.html" class="menu-link">
+							<a href="#" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
