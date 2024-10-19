@@ -654,7 +654,7 @@ class Admin extends CI_Controller {
         $data['page_title']  = 'Student Timetable';
         $data['add_script']  = 'admin/admin-script';
 
-        $data['tuition_apps'] = get_any_table_array(array('paid' => '1', 'stage' => 'PROCESSING', 'internal_stage' => 'COMPLETE', 'time_table' =>'1'), 'tuition_application');
+        $data['tuition_apps'] = get_any_table_array(array('paid' => '1', 'stage' => 'ONGOING CLASS', 'internal_stage' => 'COMPLETE', 'time_table' =>'1'), 'tuition_application');
 
         // echo "<pre>"; print_r($data['tuition_apps']); echo "</pre>"; exit();
 

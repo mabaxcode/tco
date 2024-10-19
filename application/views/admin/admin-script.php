@@ -853,7 +853,8 @@ $(document).on('click', '.generate-timetable', function(e){
                                         }
                                     }).then((function(t) {
                                         if (t.isConfirmed) {
-                                            window.location.href = "<?php echo base_url('admin/timetable'); ?>";
+                                            location.reload();
+                                           // window.location.href = "<?//php echo base_url('admin/timetable'); ?>";
                                         }
                                     }))
                                 } else {

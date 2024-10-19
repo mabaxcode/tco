@@ -214,7 +214,7 @@
 													
 													<!--end::Time-->
 													<!--begin::Description-->
-													<div class="text-gray-700 fw-semibold fs-6"><?= get_ref_subject($allClass['subject_id']); ?></div>
+													<div class="text-gray-700 fw-semibold fs-6"><b><?= get_ref_subject($allClass['subject_id']); ?></b></div>
 													<!--end::Description-->
 													<!--begin::Link-->
 													<div class="text-muted fs-7">Tutor by 

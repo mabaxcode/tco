@@ -14,6 +14,7 @@
 						<th>Name</th>
 						<th>Age</th>
 						<th>Phone No.</th>
+						<th>Subject</th>
 						<th style="text-align: right;">Action</th>
 					</tr>
 				</thead>
@@ -26,6 +27,7 @@
 							<td><?= $key['name']?></td>
 							<td><?= $key['age']?></td>
 							<td><?= $key['phone_no']?></td>
+							<td><span class="label label-inline font-weight-bold label-info"><?= get_ref_subject($key['subject'])?></span></td>
 							<td align="right">
 								<a href="#" class="btn btn-sm btn-primary font-weight-bolder text-uppercase process-tutor-app" data-init="<?= $key['tutor_id']?>">Process</a>
 							</td>

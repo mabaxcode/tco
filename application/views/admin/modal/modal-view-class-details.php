@@ -146,7 +146,7 @@
                                 <tr>
                                     <th>Photo</th>
                                     <th>Name</th>
-                                    <th>Tutor for subject</th>
+                                    <th>Tutor For Subject</th>
                                     <th>Phone No.</th>
                                     <th></th>
                                 </tr>

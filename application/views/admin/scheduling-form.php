@@ -221,6 +221,7 @@
 										    	<? 
 
 												$subject_arr = explode("|",$tuition_data['subjects']);
+												//print_r($subject_arr);
 												foreach ($subject_arr as $val => $value) {
 
 													$ref_subject = get_any_table_row(array('code' => $value), 'ref_subject');

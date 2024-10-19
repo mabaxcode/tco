@@ -12,7 +12,7 @@
 					<!--begin::Header-->
 					<div class="card-header border-0 pt-5">
 						<h3 class="card-title align-items-start flex-column">
-							<span class="card-label fw-bold text-gray-900">What’s up Today</span>
+							<span class="card-label fw-bold text-gray-900">Student Timetable</span>
 							<!-- <span class="text-muted mt-1 fw-semibold fs-7">Total 424,567 deliveries</span> -->
 						</h3>
 						<!--begin::Toolbar-->
@@ -76,7 +76,7 @@
 													
 													<!--end::Time-->
 													<!--begin::Description-->
-													<div class="text-gray-700 fw-semibold fs-6"><?= get_ref_subject($allClass['subject_id']); ?></div>
+													<div class="text-gray-700 fw-semibold fs-6"><b><?= get_ref_subject($allClass['subject_id']); ?></b></div>
 													<!--end::Description-->
 													<!--begin::Link-->
 													<div class="text-muted fs-7">Tutor by 

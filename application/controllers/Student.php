@@ -206,15 +206,15 @@ class Student extends CI_Controller {
             case '1':
             case '2':
             case '3':
-                $type = '123';
+                $type = array('1','4','5','10');
                 break;
             
             case '4':
             case '5':
-                $type = '45';
+                $type = array('1','2','3','4','5','6','7','8','9','10');
                 break;
             case '7':
-                $type = '7';
+                $type = array('15');
                 break;    
 
             default:
@@ -222,7 +222,9 @@ class Student extends CI_Controller {
                 break;
         }
 
-        $data['subjects'] = get_any_table_array(array('active' => '1', 'type' => $type), 'ref_subject');
+        //$data['subjects'] = get_any_table_array(array('active' => '1', 'type' => $type), 'ref_subject');
+        $data['subjects'] = $this->DbStudent->get_list_subject_based_on_age($type);
+
         $this->load->view('student/modal/modal-apply-tuition', $data);
     }
 

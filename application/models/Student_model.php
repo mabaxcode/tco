@@ -31,4 +31,23 @@ class Student_model extends CI_Model {
 			return false;
 		}
 	}
+
+    function get_list_subject_based_on_age($code_in)
+    {
+        $this->db->select('*');
+        $this->db->where_in('code', $code_in);
+        $this->db->where('active', '1');
+
+		$query = $this->db->get('ref_subject');
+
+        // echo $this->db->last_query(); 
+
+        // echo $code_in;
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+    }
 }
