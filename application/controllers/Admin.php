@@ -694,5 +694,6 @@ class Admin extends CI_Controller {
         // echo $data['students']; 
 
         $this->load->view('admin/modal/modal-view-class-details', $data);
+        // test
     }
 }
