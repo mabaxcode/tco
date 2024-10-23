@@ -1,6 +1,8 @@
 <script src="<?= base_url(); ?>assets/js/pages/custom/education/student/profile.js"></script>
 <script src="<?= base_url(); ?>assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
 <script src="<?= base_url(); ?>assets/js/pages/crud/forms/widgets/select2.js"></script>
+<script src="<?= base_url(); ?>assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+<script src="<?= base_url(); ?>assets/js/pages/features/calendar/basic.js"></script>
 
 <div class="modal fade" id="modal-upload-doc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
 

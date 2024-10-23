@@ -142,4 +142,70 @@ class Tutor extends CI_Controller {
             redirect('tutor/apply_tutor');
         }
     }
+
+    function get_tutor_timetable()
+    {
+        $timetables = $this->DbTutor->get_myTimeTables($this->user_id);
+
+        $eventArray = [];
+        foreach ($timetables as $event) {
+
+            $title = get_ref_subject($event['subject_id']);
+            $desc = "hello is me";
+            $class_name = "fc-event-danger fc-event-solid-warning";
+
+            $eventArray[] = [
+                'title' => $title,
+                'start' => $event['class_dt'],
+                'description' => $desc,
+                'className' => $class_name
+            ];
+
+            // $eventArray[] = [
+            //     'events' => [ // Use => instead of =
+            //         'title' => $title,
+            //         'start' => $event['class_dt'],
+            //         'description' => $desc,
+            //         'className' => $class_name
+            //     ],
+            // ];
+
+            
+        }
+        //$data['events'] = encode($eventArray);
+
+        // echo "<pre>"; print_r($timetables); echo "</pre>"; exit;
+
+        $response = array('events' => $eventArray);
+        echo encode($response);
+        // $jsonResult = json_encode(['events' => $eventsArray], JSON_PRETTY_PRINT);
+        // echo $jsonResult;
+
+        // $eventsArray = [
+        //     [
+        //         "title" => "Math Class",
+        //         "start" => "2024-10-01",
+        //         "description" => "Introduction to Algebra",
+        //         "className" => "Math101"
+        //     ],
+        //     [
+        //         "title" => "Science Class",
+        //         "start" => "2024-10-02",
+        //         "description" => "Fundamentals of Physics",
+        //         "className" => "Sci101"
+        //     ]
+        //     // Add more events as needed
+        // ];
+
+        // // If you want to encode it back to JSON format:
+        // $jsonResult = json_encode(['events' => $eventsArray], JSON_PRETTY_PRINT);
+
+        
+    }
+
+
+
+
+
+
 }   
