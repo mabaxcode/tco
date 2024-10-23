@@ -170,10 +170,19 @@ var KTCalendarBasic = function() {
 
                 defaultView: 'dayGridMonth',
                 defaultDate: TODAY,
-
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
                 navLinks: true,
+                eventTimeFormat: { // for event elements
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  meridiem: 'short' // This ensures AM/PM is displayed correctly
+                },
+                slotLabelFormat: { // for time slots (e.g., in timeGrid views)
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  meridiem: 'short' // Ensure AM/PM is displayed in slots as well
+                },
                 events: function(fetchInfo, successCallback, failureCallback) {
                     fetch(base_url + 'tutor/get_tutor_timetable', {
                         method: 'POST',

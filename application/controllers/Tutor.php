@@ -24,6 +24,14 @@ class Tutor extends CI_Controller {
 		$data['picture_data'] = get_any_table_row(array('user_id' => $this->user_id), 'profile_picture');
         $data['content']      = 'tutor/tutor-content';
 
+        # class taken
+        $data['class_taken'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+        // print_r($data['class_taken']); exit;
+
+        // $data['my_students'] = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
+
+        $data['my_students'] = $this->DbTutor->get_lastest_mystudent($this->user_id, $data['class_taken']['assign_class']);
+
 		$this->load->view('tutor/tutor-dashboard', $data);
 	}
 
@@ -148,17 +156,23 @@ class Tutor extends CI_Controller {
         $timetables = $this->DbTutor->get_myTimeTables($this->user_id);
 
         $eventArray = [];
+
         foreach ($timetables as $event) {
 
-            $title = get_ref_subject($event['subject_id']);
-            $desc = "hello is me";
+            $title      = get_ref_subject($event['subject_id']);
+            $in_class   = get_class_ref($event['class_id']);
+            $desc       = $title;
             $class_name = "fc-event-danger fc-event-solid-warning";
 
+            // start: TODAY + 'T12:00:00',
+            $class_time = $event['class_time'];
+            $time24Hour = date("H:i", strtotime($class_time));
+
             $eventArray[] = [
-                'title' => $title,
-                'start' => $event['class_dt'],
-                'description' => $desc,
-                'className' => $class_name
+                'title'         => $title,
+                'start'         => $event['class_dt'] . 'T' . $time24Hour . ":00",
+                'description'   => $desc,
+                'className'     => $class_name
             ];
 
             // $eventArray[] = [
@@ -169,43 +183,55 @@ class Tutor extends CI_Controller {
             //         'className' => $class_name
             //     ],
             // ];
-
-            
         }
-        //$data['events'] = encode($eventArray);
 
-        // echo "<pre>"; print_r($timetables); echo "</pre>"; exit;
+        // echo "<pre>"; print_r($eventArray); echo "</pre>"; exit;
 
         $response = array('events' => $eventArray);
         echo encode($response);
-        // $jsonResult = json_encode(['events' => $eventsArray], JSON_PRETTY_PRINT);
-        // echo $jsonResult;
-
-        // $eventsArray = [
-        //     [
-        //         "title" => "Math Class",
-        //         "start" => "2024-10-01",
-        //         "description" => "Introduction to Algebra",
-        //         "className" => "Math101"
-        //     ],
-        //     [
-        //         "title" => "Science Class",
-        //         "start" => "2024-10-02",
-        //         "description" => "Fundamentals of Physics",
-        //         "className" => "Sci101"
-        //     ]
-        //     // Add more events as needed
-        // ];
-
-        // // If you want to encode it back to JSON format:
-        // $jsonResult = json_encode(['events' => $eventsArray], JSON_PRETTY_PRINT);
-
         
     }
 
+    function my_student($data=false)
+    {   
+        $data['content']     = 'tutor/my-student-list';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = 'All My Students';
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+        // $data['resume_doc']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor_document');
+        // $data['subject']     = get_any_table_array(array('active' => '1'), 'ref_subject');
 
 
+        # class taken
+        $data['class_taken'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+        $data['students']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
 
+        $this->load->view('tutor/tutor-dashboard', $data);
+    }
+
+    function student_material($data=false)
+    {
+        $data['content']     = 'tutor/student-material';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = 'Student Material';
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+        // $data['resume_doc']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor_document');
+        // $data['subject']     = get_any_table_array(array('active' => '1'), 'ref_subject');
+
+
+        # class taken
+        $data['class_taken']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+        $data['materials']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_material');
+        $data['subject_name'] = get_ref_subject($data['class_taken']['subject']);
+
+        $where = array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']);
+
+        $data['total'] = count_any_table($where, 'student_material');
+
+        $this->load->view('tutor/tutor-dashboard', $data);
+    }
 
 
 }   

@@ -307,5 +307,68 @@ class Upload extends CI_Controller {
                 
                 echo  encode($response);
         }
+
+        function upload_student_material($data=false)
+        {   
+            $this->load->view('upload/modal-upload-material', $data);
+        }
+
+        function do_upload_material($data=false)
+        {       
+                $post = $this->input->post();
+                
+
+                // echo "<pre>"; print_r($_FILES['file']); echo "</pre>"; exit();
+
+                $tutor = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+                //$class     = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
+
+
+                if(!empty($_FILES['file']['name'])){
+                        
+                        $ext                            = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                        $hashfilename                   = getRandomString('20') . "." . $ext;
+                        $config['upload_path']          = './uploads/student-material';
+                        $config['allowed_types']        = 'pdf|doc|docx|xls|xlsx';
+                        $config['max_size']             = 9999;
+                        $config['file_name']            = $hashfilename;
+
+                        $this->load->library('upload', $config);
+
+                        $status = true;
+                        if ( ! $this->upload->do_upload('file'))
+                        {
+                                $error      = array('error' => $this->upload->display_errors());
+                                $status     = false;
+                                $error_msg  = $error['error'];
+                        }
+                        else
+                        {       
+                                # insert success upload
+                                $data_insert = array(
+                                        'tutor_id' => $this->user_id, 
+                                        'class_id' => $tutor['assign_class'],
+                                        'path' => $config['upload_path'],
+                                        'subject_id' => $tutor['subject'],
+                                        'filename' => $hashfilename,
+                                        'original_filename' => $_FILES['file']['name']
+                                );
+
+                                $insert = insert_any_table($data_insert, 'student_material');
+
+                        }
+
+                } else {
+                        $status = false;
+                        $error_msg = 'File not found';
+                }
+
+                if ($status == true) {
+                        $response = array('status' => true, 'msg' => 'File successfully uploaded');
+                } else {
+                        $response = array('status' => false, 'msg' => $error_msg );
+                }
+                echo  encode($response);
+        }
 }       
 

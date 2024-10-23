@@ -336,3 +336,18 @@ function count_tutor_inClass($class_id)
     return $row_count;
     
 }
+
+function count_any_table($where, $table)
+{   
+    $tco = load_instance();
+    $tco->load->database();
+
+    $tco->db->select('*');
+    $tco->db->from($table);
+    $tco->db->where($where);
+    $query = $tco->db->get();
+   
+    $row_count = $query->num_rows();
+    return $row_count;
+    
+}

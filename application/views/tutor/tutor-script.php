@@ -7,6 +7,14 @@
 <div class="modal fade" id="modal-upload-doc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
 
 <script type="text/javascript">
+
+	var table = $('#mystudent-list-datatable');
+
+	table.DataTable({
+		responsive: true,
+		pagingType: 'full_numbers',
+	});
+
 	<?php
 	  if ($this->session->flashdata('error_register')) {
 	 		?>
@@ -41,7 +49,7 @@
 	  }
 	  ?>
 
-	  $(document).on('click', '.upload-tutor-doc', function(e){
+	$(document).on('click', '.upload-tutor-doc', function(e){
         e.preventDefault();
 
         $.ajax({
@@ -115,6 +123,23 @@
                 });
 	        }
 	    }); 
+    });
+
+    $(document).on('click', '.upload-student-material', function(e){
+        e.preventDefault();
+
+        $.ajax({
+        	url: base_url + 'upload/upload_student_material',
+            type: "POST",
+            async: true,
+            success: function( response ){
+                $('#modal-upload-doc').html(response);
+                $('#modal-upload-doc').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
     });
 
 </script>

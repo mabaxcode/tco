@@ -60,4 +60,22 @@ class Tutor_model extends CI_Model {
         //     description: 'Lorem ipsum dolor sit amet, labore'
         // }
     }
+
+    function get_lastest_mystudent($tutor_id, $class_id)
+    {
+        $this->db->select('*');
+        $this->db->where('tutor_id', $tutor_id);
+        $this->db->where('class_id', $class_id);
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit(5);
+
+        $query = $this->db->get('student_class');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+
+    }
 }
