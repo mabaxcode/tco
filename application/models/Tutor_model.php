@@ -20,6 +20,7 @@ class Tutor_model extends CI_Model {
     {   
         $this->db->select('*');
         $this->db->where('tutor_id', $user_id);
+        $this->db->group_by(['class_dt', 'class_time']);
         $this->db->order_by('class_dt', 'ASC');
 
         $query = $this->db->get('student_timetable');

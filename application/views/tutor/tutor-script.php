@@ -6,6 +6,8 @@
 
 <div class="modal fade" id="modal-upload-doc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
 
+<div class="modal fade" id="modal_form_details" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
+
 <script type="text/javascript">
 
 	var table = $('#mystudent-list-datatable');
@@ -135,6 +137,244 @@
             success: function( response ){
                 $('#modal-upload-doc').html(response);
                 $('#modal-upload-doc').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+    $(document).on('click', '.view-student-details', function(e){
+        
+        e.preventDefault();
+
+        var student_id = $(this).data('init');
+
+        $.ajax({
+        	url: base_url + 'tutor/view_student_details',
+            type: "POST",
+            async: true,
+            data:{student_id:student_id},
+            success: function( response ){
+                $('#modal_form_details').html(response);
+                $('#modal_form_details').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+    function act_online_class(id)
+	{   
+	    // Get the checkbox element
+	    const checkbox = document.getElementById('online-check-'+id);
+
+	    var class_type = '';
+	  
+	    // Check if the checkbox is checked or not
+	    if (checkbox.checked) {
+	        class_type = '1';
+	        
+	    } else {
+	        class_type = '0';
+	       
+	    }
+
+	    if (class_type == 1) {
+	    		
+	    	$.ajax({
+	        	url: base_url + 'tutor/modal_online_class',
+	            type: "POST",
+	            async: true,
+	            data:{id:id},
+	            success: function( response ){
+	                $('#modal_form_details').html(response);
+	                $('#modal_form_details').modal('show');
+	            },
+	            error: function(data){
+	                // console.log(data);
+	            },
+	        });
+
+	    } else {
+	    	Swal.fire({
+	        title: "Are you sure?",
+	        text: "Change this class to physical class",
+	        icon: "warning",
+	        showCancelButton: true,
+	        confirmButtonText: "Yes, Confirm"
+	    }).then(function(result) {
+
+	        	if (result.value) {
+	           
+		            $.ajax({
+		                url: base_url + 'tutor/proceed_offline_class',
+		                type: "POST",
+		                data: {id:id},
+		                async: true,
+		                dataType:"json",
+		                success: function( response ){
+		                    if (response.status == true) {
+		                        Swal.fire({
+		                            text: "Successfullyy update",
+		                            icon: "success",
+		                            buttonsStyling: !1,
+		                            confirmButtonText: "Ok, got it!",
+		                            customClass: {
+		                                confirmButton: "btn btn-primary"
+		                            }
+		                        }).then((function(t) {
+		                            if (t.isConfirmed) {
+		                                // $("#modal_student_regform").modal('hide');
+		                                location.reload();
+		                            }
+		                        }))
+		                    } else {
+		                        Swal.fire({
+		                            text: response.msg,
+		                            icon: "error",
+		                            buttonsStyling: !1,
+		                            confirmButtonText: "Ok, got it!",
+		                            customClass: {
+		                                confirmButton: "btn btn-primary"
+		                            }
+		                        })
+		                    }
+		                },
+		                error: function(data){
+		                    // console.log(data);
+		                },
+		            });
+		        } else {
+		        	location.reload();
+		        }
+		    });
+
+	    }
+	}
+
+	$(document).on('click', '.save-class-link', function(e){
+
+	    e.preventDefault();
+
+	    var form_data = $("#class-online-form-data").serialize();
+
+	    Swal.fire({
+	        title: "Are you sure?",
+	        // text: "This will be send to student",
+	        icon: "warning",
+	        showCancelButton: true,
+	        confirmButtonText: "Yes, Confirm"
+	    }).then(function(result) {
+	        if (result.value) {
+	           
+	            $.ajax({
+	                url: base_url + 'tutor/proceed_online_class',
+	                type: "POST",
+	                data: form_data,
+	                async: true,
+	                dataType:"json",
+	                success: function( response ){
+	                    if (response.status == true) {
+	                        Swal.fire({
+	                            text: "Successfullyy created",
+	                            icon: "success",
+	                            buttonsStyling: !1,
+	                            confirmButtonText: "Ok, got it!",
+	                            customClass: {
+	                                confirmButton: "btn btn-primary"
+	                            }
+	                        }).then((function(t) {
+	                            if (t.isConfirmed) {
+	                                // $("#modal_student_regform").modal('hide');
+	                                location.reload();
+	                            }
+	                        }))
+	                    } else {
+	                        Swal.fire({
+	                            text: response.msg,
+	                            icon: "error",
+	                            buttonsStyling: !1,
+	                            confirmButtonText: "Ok, got it!",
+	                            customClass: {
+	                                confirmButton: "btn btn-primary"
+	                            }
+	                        })
+	                    }
+	                },
+	                error: function(data){
+	                    // console.log(data);
+	                },
+	            });
+	        }
+	    });
+	});
+
+	$(document).on('click', '.close-checkbox-online', function(e){
+
+	    e.preventDefault();
+
+	    $("#modal_form_details").modal('hide');
+	    location.reload();
+
+	});
+
+	$(document).on('click', '.delete-material', function(e){
+        e.preventDefault();
+
+        var id = $(this).data('init');
+
+	    Swal.fire({
+	        title: "Are you sure?",
+	        text: "This file will be delete",
+	        icon: "warning",
+	        showCancelButton: true,
+	        confirmButtonText: "Yes, delete it!"
+	    }).then(function(result) {
+	        if (result.value) {
+	           
+	            $.ajax({
+                	url: base_url + 'upload/delete_material',
+                    type: "POST",
+                    data: {id:id},
+                    async: true,
+                    dataType:"json",
+                    success: function( response ){
+                    	console.log(response);
+                    	if (response.status == true) {
+			                Swal.fire(
+				                "Deleted!",
+				                "Your file has been deleted.",
+				                "success"
+				            )
+				            location.reload();
+                    	}
+                    	
+                    },
+                    error: function(data){
+                        // console.log(data);
+                    },
+                });
+	        }
+	    }); 
+    });
+    
+
+    $(document).on('click', '.edit-material', function(e){
+        
+        e.preventDefault();
+
+        var id = $(this).data('init');
+
+        $.ajax({
+        	url: base_url + 'tutor/edit_material_modal',
+            type: "POST",
+            async: true,
+            data:{id:id},
+            success: function( response ){
+                $('#modal_form_details').html(response);
+                $('#modal_form_details').modal('show');
             },
             error: function(data){
                 // console.log(data);

@@ -162,17 +162,26 @@ class Tutor extends CI_Controller {
             $title      = get_ref_subject($event['subject_id']);
             $in_class   = get_class_ref($event['class_id']);
             $desc       = $title;
-            $class_name = "fc-event-danger fc-event-solid-warning";
+            
+
+            if ($event['class_type'] == '1') {
+                $class_name = "fc-event-danger fc-event-solid-danger";
+            } else {
+                $class_name = "fc-event-danger fc-event-solid-warning";
+            }
 
             // start: TODAY + 'T12:00:00',
             $class_time = $event['class_time'];
             $time24Hour = date("H:i", strtotime($class_time));
+            $class_type = ($event['class_type'] == '1') ? "Online Class" : "Physical Class";
+            $class_type_new = ($event['class_type'] == '1') ? "Online" : "";
 
             $eventArray[] = [
-                'title'         => $title,
+                'title'         => $class_type_new,
                 'start'         => $event['class_dt'] . 'T' . $time24Hour . ":00",
-                'description'   => $desc,
-                'className'     => $class_name
+                'description'   => $class_type,
+                'className'     => $class_name,
+                'url' => 'http://google.com/',
             ];
 
             // $eventArray[] = [
@@ -231,6 +240,104 @@ class Tutor extends CI_Controller {
         $data['total'] = count_any_table($where, 'student_material');
 
         $this->load->view('tutor/tutor-dashboard', $data);
+    }
+
+    function view_student_details($data=false)
+    {
+        $student_id = $this->input->post('student_id');
+
+        $data['student_data'] = get_any_table_row(array('student_id' => $student_id), 'student_information');
+        $data['student_doc']  = get_any_table_row(array('student_id' => $student_id), 'student_document');
+
+        $this->load->view('tutor/modal/modal-student-details', $data);
+    }
+
+    function manage_timetable($data=false)
+    {
+        $data['content']     = 'tutor/manage-timetable';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = 'Manage Timetable';
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+        // $data['resume_doc']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor_document');
+        // $data['subject']     = get_any_table_array(array('active' => '1'), 'ref_subject');
+
+
+        # class taken
+        $data['class_taken']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+        //$data['materials']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_material');
+        //$data['subject_name'] = get_ref_subject($data['class_taken']['subject']);
+        $data['students']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
+
+
+        //$where = array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']);
+
+        //$data['total'] = count_any_table($where, 'student_material');
+
+        $data['subject_name'] = get_ref_subject($data['class_taken']['subject']);
+        $data['class_name'] = get_class_ref($data['class_taken']['assign_class']);
+
+        $data['timetables'] = $this->DbTutor->get_myTimeTables($this->user_id);
+
+
+        $this->load->view('tutor/tutor-dashboard', $data);
+    }
+
+    function modal_online_class($data=false)
+    {
+        $id = $this->input->post('id');
+
+        $data['this_timetable'] = get_any_table_row(array('id' => $id), 'student_timetable');
+
+        $this->load->view('tutor/modal/modal-online-class', $data);
+
+    }
+
+    function proceed_online_class($data=false)
+    {
+        $post = $this->input->post();
+        // echo "<pre>"; print_r($post); echo "</pre>";
+
+        $class_link = $post['class_link'];
+
+        if ($class_link == '') {
+            $response = array('status' => false, 'msg' => 'Please insert the class link' );
+            echo encode($response); exit;
+        }
+
+        $update = array('class_type' => '1', 'class_link' => $post['class_link']);
+        $where  = array('tutor_id' => $this->user_id, 'class_dt' => $post['class_dt'], 'class_time' => $post['class_time'] );
+ 
+        update_any_table($update, $where, 'student_timetable');
+
+        $response = array('status' => true );
+        echo encode($response);
+    }
+
+    function proceed_offline_class($data=false)
+    {
+        $id = $this->input->post('id');
+
+        $this_timetable = get_any_table_row(array('id' => $id), 'student_timetable');
+
+        $update = array('class_type' => '0', 'class_link' => '');
+        $where  = array('tutor_id' => $this->user_id, 'class_dt' => $this_timetable['class_dt'], 'class_time' => $this_timetable['class_time'] );
+ 
+        update_any_table($update, $where, 'student_timetable');
+
+        $response = array('status' => true );
+        echo encode($response);
+
+    }
+
+    function edit_material_modal($data=false)
+    {
+        $id = $this->input->post('id');
+
+        $data['this_timetable'] = get_any_table_row(array('id' => $id), 'student_timetable');
+
+        $this->load->view('tutor/modal/modal-edit-material', $data);
+
     }
 
 

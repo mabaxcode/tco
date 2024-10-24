@@ -95,8 +95,6 @@ var KTCalendarBasic = function() {
                 });
             }
 
-            var eventsArrayBabi = [];
-
             // Usage
 
 

@@ -245,6 +245,21 @@ class Upload extends CI_Controller {
                 echo encode($response);
         }
 
+        function delete_material($data=false)
+        {
+                $post = $this->input->post();
+                // echo "<pre>";print_r($post); echo "</pre>";
+                $delete = delete_any_table(array('id' => $post['id']), 'student_material');
+
+                if ($delete == true) {
+                        $response = array('status' => true, 'msg' => 'File successfully delete');
+                } else {
+                        $response = array('status' => false, 'msg' => 'Error on deleting file');
+                }
+                
+                echo encode($response);
+        }
+
         function do_upload_receipt_doc($data=false)
         {       
                 $post = $this->input->post();

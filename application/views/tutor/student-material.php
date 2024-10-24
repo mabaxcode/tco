@@ -200,6 +200,12 @@
 						<div class="card-header border-0">
 							<h3 class="card-title"></h3>
 							<div class="card-toolbar">
+								<a href="#" class="navi-link delete-material" data-init="<?= $value['id']?>">
+									<span class="navi-icon">
+										<i class="flaticon2-trash text-danger"></i>
+									</span>
+								</a>
+								<?/*
 								<div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left">
 									<a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="ki ki-bold-more-hor"></i>
@@ -207,26 +213,29 @@
 									<div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
 										<!--begin::Navigation-->
 										<ul class="navi navi-hover py-5">
+											
 											<li class="navi-item">
-												<a href="#" class="navi-link">
+												<a href="#" class="navi-link edit-material" data-init="<?= $value['id']?>">
 													<span class="navi-icon">
-														<i class="flaticon2-trash"></i>
-													</span>
-													<span class="navi-text">Delete</span>
-												</a>
-											</li>
-											<li class="navi-item">
-												<a href="#" class="navi-link">
-													<span class="navi-icon">
-														<i class="flaticon2-list-3"></i>
+														<i class="flaticon2-list-3 text-info"></i>
 													</span>
 													<span class="navi-text">Edit Filename</span>
+												</a>
+											</li>
+											
+											<li class="navi-item">
+												<a href="#" class="navi-link delete-material" data-init="<?= $value['id']?>">
+													<span class="navi-icon">
+														<i class="flaticon2-trash text-danger"></i>
+													</span>
+													<span class="navi-text">Delete</span>
 												</a>
 											</li>
 										</ul>
 										<!--end::Navigation-->
 									</div>
 								</div>
+								*/?>
 							</div>
 						</div>
 						<div class="card-body">
@@ -235,7 +244,11 @@
 								<img alt="" class="max-h-65px" src="<?= base_url($icon_file); ?>" />
 								<!--end: Icon-->
 								<!--begin: Tite-->
-								<a href="#" class="text-dark-75 font-weight-bold mt-15 font-size-lg"><?= $value['original_filename']?></a>
+								
+						    	<? $path = base_url ($value['path'] . "/" . $value['filename']); ?>
+						    		
+
+								<a href="<?= $path; ?>" target="_BLANK" class="text-dark-75 font-weight-bold mt-15 font-size-lg"><?= $value['original_filename']?></a>
 								<!--end: Tite-->
 							</div>
 						</div>

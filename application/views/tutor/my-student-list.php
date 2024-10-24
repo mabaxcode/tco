@@ -6,6 +6,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Photo</th>
 						<th>Name</th>
 						<th>Form</th>
 						<th>Phone No.</th>
@@ -23,7 +24,16 @@
 						?>
 						<tr>
 							<td><?= $no++;?></td>
-							<td><?= ucfirst($student_detail['name']) ?><br><small><?= $student_detail['email']?></small></td>
+							<td class="pl-0 py-4">
+								<div class="symbol symbol-50 symbol-light">
+									<span class="symbol-label">
+										<img src="<?= view_profile_picture($student_img); ?>" class="h-50 align-self-center" alt="" />
+									</span>
+								</div>
+							</td>
+							<td>
+								<?= ucfirst($student_detail['name']) ?><br><small><?= $student_detail['email']?></small>
+							</td>
 							<td>
 								<?=
 								$retVal = ($student_detail['form'] == '7') ? '<span class="label label-inline font-weight-bold label-info">SK RENDAH</span>' : '<span class="label label-inline font-weight-bold label-info">FORM ' . $student_detail['form'] . '</span>';

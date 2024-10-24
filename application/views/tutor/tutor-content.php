@@ -319,8 +319,8 @@
 								?>
 								
 								<li class="nav-item">
-									<a class="nav-link py-2 px-4 active" data-toggle="tab" href="#my_student_list">
-										<span class="nav-text font-size-sm"><?= get_class_ref($class_taken['assign_class']) ?></span>
+									<a class="nav-link py-2 px-4 active btn btn-success font-weight-bold" href="<?= base_url('tutor/my_student'); ?>">
+										<i class="icon-nm fas fa-chalkboard-teacher"></i> <?= get_class_ref($class_taken['assign_class']) ?>
 									</a>
 								</li>
 								
@@ -387,7 +387,7 @@
 													<span class="label label-lg label-light-success label-inline">Active</span>
 												</td>
 												<td class="text-right pr-0">
-													<a href="#" class="btn btn-light btn-hover-primary btn-sm">
+													<a href="#" class="btn btn-light btn-hover-primary btn-sm view-student-details" data-init="<?= $key['student_id']?>">
 														View Details
 													</a>
 													<?/*
