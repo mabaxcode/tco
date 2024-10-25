@@ -214,7 +214,7 @@ class Tutor extends CI_Controller {
 
         # class taken
         $data['class_taken'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
-        $data['students']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
+        // $data['students']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
 
         $this->load->view('tutor/tutor-dashboard', $data);
     }
@@ -337,6 +337,138 @@ class Tutor extends CI_Controller {
         $data['this_timetable'] = get_any_table_row(array('id' => $id), 'student_timetable');
 
         $this->load->view('tutor/modal/modal-edit-material', $data);
+
+    }
+
+    function create_homework($data=false)
+    {
+        # create homework for their students
+        $data['content']     = 'tutor/create-homework-list';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = 'Create Homework';
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        # class taken
+        $data['tutor'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+
+        # tutor's class
+        $data['tutor_class']  = $data['tutor']['assign_class'];
+
+        $data['students'] = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['tutor']['assign_class']), 'student_class');
+
+        // echo $this->user_id; exit;
+
+        foreach ($data['students'] as $key) {
+            
+            $student_detail = get_any_table_row(array('student_id' => $key['student_id']), 'student_information');
+
+            if ($student_detail['form'] == '1') {
+                $studForm = array('1');
+            }
+
+            if ($student_detail['form'] == '2') {
+                $studForm = array('2');
+            }
+
+            if ($student_detail['form'] == '3') {
+                $studForm = array('3');
+            }
+
+            if ($student_detail['form'] == '4') {
+                $studForm = array('4');
+            }
+
+            if ($student_detail['form'] == '5') {
+                $studForm = array('5');
+            }
+
+            if ($student_detail['form'] == '7') {
+                $studForm = array('7');
+            }
+        }
+
+        if ($data['students']) {
+            
+            if (in_array('1', $studForm)) {
+                $data['form_1'] = 'yes';
+            }
+
+            if (in_array('2', $studForm)) {
+                $data['form_2'] = 'yes';
+            }
+
+            if (in_array('3', $studForm)) {
+                $data['form_4'] = 'yes';
+            }
+
+            if (in_array('4', $studForm)) {
+                $data['form_4'] = 'yes';
+            }
+
+            if (in_array('5', $studForm)) {
+                $data['form_5'] = 'yes';
+            }
+
+            if (in_array('7', $studForm)) {
+                $data['sk_rendah'] = 'yes';
+            }
+
+        } else {
+            $data['no_student'] = true;
+        }
+
+        $data['class_id'] = $data['tutor']['assign_class'];
+        $data['subject_id'] = $data['tutor']['subject'];
+
+        $this->load->view('tutor/tutor-dashboard', $data);
+
+    }
+
+    function modal_create_homework($data=false)
+    {
+        $post = $this->input->post();
+
+        $data['form']       = $post['form'];
+        $data['class_id']   = $post['class_id'];
+        $data['subject_id'] = $post['subject_id'];
+        $data['temp_key']   = getRandomString('30');
+
+        $this->load->view('tutor/modal/modal-add-homework', $data);
+    }
+
+    function add_new_homework($data=false)
+    {
+        $post = $this->input->post();
+
+        // echo "<pre>"; print_r($post); echo "</pre>";
+
+        if($post['name'] == ''){
+            $response = array('status' => false, 'msg' => "Homework name is required" );
+            echo encode($response); exit;
+        }     
+
+
+        $insert = array(
+            'name' => $post['name'],
+            'remark' => $post['remark'],
+            'class_id' => $post['class_id'],
+            'subject_id' => $post['subject_id'],
+            'form' => $post['form'],
+            'attachment ' => $post['temp_key']
+        );
+
+        // print_r($insert);
+
+        insert_any_table($insert, 'homework');
+
+        $update = array('is_submit' => '1');
+        $where = array('temp_key' => $post['temp_key']);
+
+        update_any_table($update, $where, 'homework_document');
+
+        $response = array('status' => true);
+        echo encode($response);
 
     }
 

@@ -382,4 +382,123 @@
         });
     });
 
+    $(document).on('click', '.btn-add-homework', function(e){
+        
+        e.preventDefault();
+
+        var form_desc = '';
+        var form = $(this).data('form');
+        var class_id = $(this).data('classid');
+        var subject_id = $(this).data('subjectid');
+
+        // if (form == '1') {
+        // 	form_desc = 'Form 1';
+        // } else if (form == '2') {
+        // 	form_desc = 'Form 2';
+        // } else if (form == '3') {
+        // 	form_desc = 'Form 2';
+        // } else if (form == '4') {
+        // 	form_desc = 'Form 2';
+        // } else if (form == '5') {
+        // 	form_desc = 'Form 2';
+        // } else if (form == '7') {
+        // 	form_desc = 'Sekolah Rendah';
+        // }
+
+        // Swal.fire({
+	    //     title: "Are you sure?",
+	    //     text: "Create Homework For Student "+form_desc,
+	    //     icon: "warning",
+	    //     showCancelButton: true,
+	    //     confirmButtonText: "Yes!"
+	    // }).then(function(result) {
+	    //     if (result.value) {
+	           
+	    //         $.ajax({
+        //         	url: base_url + 'upload/delete_material',
+        //             type: "POST",
+        //             data: {id:id},
+        //             async: true,
+        //             dataType:"json",
+        //             success: function( response ){
+        //             	console.log(response);
+        //             	if (response.status == true) {
+		// 	                Swal.fire(
+		// 		                "Deleted!",
+		// 		                "Your file has been deleted.",
+		// 		                "success"
+		// 		            )
+		// 		            location.reload();
+        //             	}
+                    	
+        //             },
+        //             error: function(data){
+        //                 // console.log(data);
+        //             },
+        //         });
+	    //     }
+	    // }); 
+
+        $.ajax({
+        	url: base_url + 'tutor/modal_create_homework',
+            type: "POST",
+            async: true,
+            data:{form:form,class_id:class_id,subject_id:subject_id},
+            success: function( response ){
+                $('#modal_form_details').html(response);
+                $('#modal_form_details').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+    $(document).on('click', '.add-homework', function(e){
+        
+        e.preventDefault();
+
+        var form_data = $("#add-homework-form").serialize();
+
+        $.ajax({
+        	url: base_url + 'tutor/add_new_homework',
+            type: "POST",
+            async: true,
+            data:form_data,
+            dataType:"json",
+            success: function( response ){
+                if (response.status == true) {
+                    Swal.fire({
+                        text: "Successfullyy created",
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then((function(t) {
+                        if (t.isConfirmed) {
+                            // $("#modal_student_regform").modal('hide');
+                            location.reload();
+                        }
+                    }))
+                } else {
+                    Swal.fire({
+                        text: response.msg,
+                        icon: "error",
+                        buttonsStyling: !1,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    })
+                }
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+
 </script>

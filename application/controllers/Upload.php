@@ -385,5 +385,74 @@ class Upload extends CI_Controller {
                 }
                 echo  encode($response);
         }
+
+        function do_upload_homework($data=false)
+        {
+
+                $post = $this->input->post();
+                
+
+                // echo "<pre>"; print_r($_FILES['file']); echo "</pre>"; exit();
+
+
+                if(!empty($_FILES['file']['name'])){
+                        
+                        $ext                            = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                        $hashfilename                   = getRandomString('20') . "." . $ext;
+                        $config['upload_path']          = './uploads/student-document';
+                        $config['allowed_types']        = 'pdf|doc|docx|xls|xlsx';
+                        $config['max_size']             = 9999;
+                        $config['file_name']            = $hashfilename;
+
+                        
+
+                        $this->load->library('upload', $config);
+
+                        $status = true;
+                        if ( ! $this->upload->do_upload('file'))
+                        {
+                                $error      = array('error' => $this->upload->display_errors());
+                                $status     = false;
+                                $error_msg  = $error['error'];
+                        }
+                        else
+                        {       
+                                # insert success upload
+                                $data_insert = array(
+                                        'upload_by' => $this->user_id, 
+                                        'subject_id' => $post['subject_id'],
+                                        'class_id' => $post['class_id'],
+                                        'path' => $config['upload_path'],
+                                        'create_dt' => current_dt(),
+                                        'filename' => $hashfilename,
+                                        'original_filename' => $_FILES['file']['name'],
+                                        'form' => $post['form'],
+                                        'temp_key' => $post['temp_key'],
+                                );
+
+                                $insert = insert_any_table($data_insert, 'homework_document');
+
+                        }
+
+                } else {
+                        $status = false;
+                        $error_msg = 'File not found';
+                }
+
+                if ($status == true) {
+
+                        // $getback_document = get_any_table_row(array('temp_key' => $temp_key['temp_key']), 'homework_document');
+
+                        // # create html view
+                        // $document = '<div class="alert alert-secondary mt-2" role="alert"><a href="#" class="alert-link">'.$getback_document['original_filename'].'</a><a href="#" class="close delete-receipt-doc" data-init="'.$getback_document['id'].'"><i class="ki ki-close icon-nm"></i></a></div>';
+
+                        $response = array('status' => true, 'msg' => 'File successfully uploaded');
+                } else {
+                        $response = array('status' => false, 'msg' => $error_msg );
+                }
+
+                
+                echo  encode($response); 
+        }
 }       
 
