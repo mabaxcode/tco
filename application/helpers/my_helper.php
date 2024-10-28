@@ -351,3 +351,37 @@ function count_any_table($where, $table)
     return $row_count;
     
 }
+
+function count_student_form($loopStudents, $form)
+{   
+
+    $student_detail = array();
+    foreach ($loopStudents as $key) {
+        $student_detail[] = get_any_table_row(array('student_id' => $key['student_id'], 'form' => $form), 'student_information');
+    }
+
+
+    // print_r($student_detail);
+
+    // Count the number of student details after the loop
+    $count = count(array_filter($student_detail));
+    return $count;
+}
+
+
+function count_student_complete($loopStudents, $homework_id)
+{
+    $student_detail       = array();
+    foreach ($loopStudents as $key) {
+        $student_detail[] = get_any_table_row(array('student_id' => $key['student_id'], 'homework_id' => $homework_id, 'status' => '1'), 'homework_status');
+    }
+
+    // Count the number of student details after the loop
+    $count = count(array_filter($student_detail));
+    return $count;
+}
+
+
+
+
+

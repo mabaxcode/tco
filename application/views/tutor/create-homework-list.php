@@ -11,7 +11,7 @@
 						<li class="nav-item">
 							<a class="nav-link active" id="home-tab-1" data-toggle="tab" href="#home-1">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Form 1</span>
 							</a>
@@ -19,7 +19,7 @@
 						<li class="nav-item">
 							<a class="nav-link" id="home-tab-2" data-toggle="tab" href="#home-2">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Form 2</span>
 							</a>
@@ -27,7 +27,7 @@
 						<li class="nav-item">
 							<a class="nav-link" id="home-tab-3" data-toggle="tab" href="#home-3">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Form 3</span>
 							</a>
@@ -35,7 +35,7 @@
 						<li class="nav-item">
 							<a class="nav-link" id="home-tab-4" data-toggle="tab" href="#home-4">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Form 4</span>
 							</a>
@@ -43,7 +43,7 @@
 						<li class="nav-item">
 							<a class="nav-link" id="home-tab-5" data-toggle="tab" href="#home-5">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Form 5</span>
 							</a>
@@ -68,7 +68,7 @@
 						<li class="nav-item">
 							<a class="nav-link" id="home-tab-7" data-toggle="tab" href="#home-7" aria-controls="contact">
 								<span class="nav-icon">
-									<i class="flaticon2-layers-1"></i>
+									<i class="flaticon2-cardiogram"></i>
 								</span>
 								<span class="nav-text">Sekolah Rendah</span>
 							</a>

@@ -500,5 +500,26 @@
         });
     });
 
+    $(document).on('click', '.view-student-homework-detail', function(e){
+        
+        e.preventDefault();
+
+        var id = $(this).data('init');
+
+        $.ajax({
+        	url: base_url + 'tutor/view_student_homework_details',
+            type: "POST",
+            async: true,
+            data:{id:id},
+            success: function( response ){
+                $('#modal_form_details').html(response);
+                $('#modal_form_details').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
 
 </script>

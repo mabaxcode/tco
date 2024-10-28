@@ -468,5 +468,43 @@ class Tutor extends CI_Controller {
 
     }
 
+    function students_homework($data=false)
+    {
+        # create homework for their students
+        $data['content']     = 'tutor/student-homework-list';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = "Studen's Homework";
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        # class taken
+        //$data['tutor'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+
+        # tutor's class
+        //$data['tutor_class']  = $data['tutor']['assign_class'];
+
+        // $data['students'] = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['tutor']['assign_class']), 'student_class');
+
+        // $data['class_id'] = $data['tutor']['assign_class'];
+        // $data['subject_id'] = $data['tutor']['subject'];
+
+
+        $data['homeworks'] = get_any_table_array(array('tutor_id' => $this->user_id), 'homework');
+
+        $this->load->view('tutor/tutor-dashboard', $data);
+    }
+
+    function view_student_homework_details($data=false)
+    {
+        $homework_id = $this->input->post('id');
+
+        $data['homeworks'] = get_any_table_array(array('tutor_id' => $this->user_id, 'id' => $homework_id), 'homework');
+
+
+        
+
+
+    }
+
 
 }   
