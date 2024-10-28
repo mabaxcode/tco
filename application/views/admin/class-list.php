@@ -4,6 +4,7 @@
 			<div class="card-title">
 				<h3 class="card-label">List Of Class</h3>
 			</div>
+			<?/*
 			<div class="card-toolbar">
 				<a href="javascript:void(0);" class="btn btn-primary font-weight-bolder add-new-class">
 				<span class="svg-icon svg-icon-md">
@@ -18,6 +19,7 @@
 					<!--end::Svg Icon-->
 				</span>New Class</a>
 			</div>
+			*/?>
 		</div>
 		<div class="card-body">
 			<!--begin: Datatable-->
