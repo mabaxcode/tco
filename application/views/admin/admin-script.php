@@ -1,6 +1,8 @@
 
 <div class="modal fade" id="modal_student_regform" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true"></div>
 
+<script src="<?= base_url(); ?>/assets/js/pages/features/charts/apexcharts.js"></script>
+
 <script type="text/javascript">
 
 var table = $('#student-register-datatable');
@@ -853,8 +855,8 @@ $(document).on('click', '.generate-timetable', function(e){
                                         }
                                     }).then((function(t) {
                                         if (t.isConfirmed) {
-                                            location.reload();
-                                           // window.location.href = "<?//php echo base_url('admin/timetable'); ?>";
+                                            // location.reload();
+                                           window.location.href = "<?php echo base_url('admin/scheduling'); ?>";
                                         }
                                     }))
                                 } else {

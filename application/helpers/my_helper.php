@@ -396,6 +396,31 @@ function dmy($p_ymd, $p_sep = "/")
     return $r_dmy;
 }
 
+function get_request_tution_on($month, $year)
+{
+    $tco = load_instance();
+    $tco->load->database();
+
+    // $tco->db->select('*');
+    // $tco->db->from('tuition_application');
+    // // $tco->db->where($where);
+    // $tco->db->where('MONTH(create_dt)', $month);
+    // $tco->db->where('YEAR(create_dt)', $year);
+    // $query = $tco->db->get();
+   
+    // $row_count = $query->num_rows();
+
+    // $result = number_format($row_count, 0);
+
+    // return $result;
+
+    $tco->db->where('MONTH(create_dt)', $month);
+    $tco->db->where('YEAR(create_dt)', $year);
+    $count = $tco->db->count_all_results('tuition_application');
+
+    return $count;
+}
+
 
 
 

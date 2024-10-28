@@ -327,7 +327,8 @@
 									<input type="hidden" id="t-id" value="<?= $tuition_data['tuition_id']?>">
 									<div class="card-footer" align="right">
 									   <button type="reset" class="btn btn-secondary mr-2 generate-timetable" data-init="<?= $tuition_data['tuition_id']?>">Generate Timetable</button>
-									   <button type="reset" class="btn btn-danger reset-student-class" data-init="<?= $tuition_data['tuition_id']?>" data-studentid="<?= $student_data['student_id']?>">Reset</button>
+									   <?/*
+									   <button type="reset" class="btn btn-danger reset-student-class" data-init="<?= $tuition_data['tuition_id']?>" data-studentid="<?= $student_data['student_id']?>">Reset</button> */?>
 									</div>
 							</form>
 						</div>

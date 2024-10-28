@@ -80,7 +80,7 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
             <h1>Better Solutions For Your Tuition Organizer</h1>
-            <p>We are team of talented designers making websites with Bootstrap</p>
+            <p>Unlock Your Potential with Our Online Tuition Organizer.</p>
             <div class="d-flex">
               <a href="<?php echo base_url('register/create_account') ?>" class="btn-get-started">Create an account</a>
               <!-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->

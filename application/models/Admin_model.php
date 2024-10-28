@@ -112,4 +112,37 @@ class Admin_model extends CI_Model {
 		return $row_count;
 	}
 
+	function timetable_cron()
+	{
+		$now = date("Y-m-d");
+
+		$this->db->select('*');
+		$this->db->from('student_timetable');
+		$this->db->where('status', '1');
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+
+			$dates = $query->result_array();
+
+			foreach ($dates as $key) {
+
+				if (strtotime($now) > strtotime($key['class_dt'])) {
+				    	
+				    $update = array('status' => '2');
+
+				    update_any_table($update, array('id' => $key['id']), 'student_timetable');
+
+				}
+
+			}
+
+		} else {
+
+			return false;
+
+		}
+
+	}
+
 }

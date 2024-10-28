@@ -41,41 +41,108 @@ function generateData(count, yrange) {
 
 var KTApexChartsDemo = function () {
 	// Private functions
+	// var _demo1 = function () {
+	// 	const apexChart = "#chart_1";
+	// 	var options = {
+	// 		series: [{
+	// 			name: "Tuition Request",
+	// 			data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 12, 2, 3]
+	// 		}],
+	// 		chart: {
+	// 			height: 350,
+	// 			type: 'line',
+	// 			zoom: {
+	// 				enabled: false
+	// 			}
+	// 		},
+	// 		dataLabels: { 	
+	// 			enabled: false
+	// 		},
+	// 		stroke: {
+	// 			curve: 'straight'
+	// 		},
+	// 		grid: {
+	// 			row: {
+	// 				colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+	// 				opacity: 0.5
+	// 			},
+	// 		},
+	// 		xaxis: {
+	// 			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	// 		},
+	// 		colors: [primary]
+	// 	};
+
+	// 	var chart = new ApexCharts(document.querySelector(apexChart), options);
+	// 	chart.render();
+	// }
+
 	var _demo1 = function () {
-		const apexChart = "#chart_1";
-		var options = {
-			series: [{
-				name: "Desktops",
-				data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-			}],
-			chart: {
-				height: 350,
-				type: 'line',
-				zoom: {
-					enabled: false
+	const apexChart = "#chart_1";
+
+	// Function to fetch data from the server
+	const fetchChartData = async () => {
+			try {
+				const response = await fetch( base_url + 'admin/overall_tution_request'); // Update the URL to your API endpoint
+				if (!response.ok) {
+					throw new Error('Network response was not ok ' + response.statusText);
 				}
-			},
-			dataLabels: { 	
-				enabled: false
-			},
-			stroke: {
-				curve: 'straight'
-			},
-			grid: {
-				row: {
-					colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-					opacity: 0.5
-				},
-			},
-			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-			},
-			colors: [primary]
+				const data = await response.json();
+
+
+				const tuitionRequests = data.series;
+
+				const integerData = tuitionRequests.map(value => Math.round(value));
+
+				// Assuming the data format is:
+				// { series: [{ name: "Tuition Request", data: [...] }], categories: [...] }
+				const options = {
+					series: [{
+							name: "Tuition Request",
+							data: data.series
+						}],
+					chart: {
+						height: 350,
+						type: 'line',
+						zoom: {
+							enabled: false
+						}
+					},
+					dataLabels: { 	
+						enabled: false
+					},
+					stroke: {
+						curve: 'straight'
+					},
+					grid: {
+						row: {
+							colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+							opacity: 0.5
+						},
+					},
+					xaxis: {
+						categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					},
+					tooltip: {
+				        y: {
+				            formatter: function (val) {
+				                return Math.round(val); // Ensure integer display in tooltips
+				            }
+				        }
+				    },
+					colors: [primary] // Make sure `primary` is defined or replace it with a color code
+				};
+
+				const chart = new ApexCharts(document.querySelector(apexChart), options);
+				chart.render();
+			} catch (error) {
+				console.error('Error fetching chart data:', error);
+			}
 		};
 
-		var chart = new ApexCharts(document.querySelector(apexChart), options);
-		chart.render();
-	}
+		fetchChartData(); // Call the function to fetch data
+	};
+
 
 	var _demo2 = function () {
 		const apexChart = "#chart_2";
@@ -931,31 +998,100 @@ var KTApexChartsDemo = function () {
 		chart.render();
 	}
 
-	var _demo11 = function () {
-		const apexChart = "#chart_11";
-		var options = {
-			series: [44, 55, 41, 17, 15],
-			chart: {
-				width: 380,
-				type: 'donut',
-			},
-			responsive: [{
-				breakpoint: 480,
-				options: {
-					chart: {
-						width: 200
-					},
-					legend: {
-						position: 'bottom'
-					}
-				}
-			}],
-			colors: [primary, success, warning, danger, info]
-		};
+	// var _demo11 = function () {
+	// 	const apexChart = "#chart_11";
+	// 	var options = {
+	// 		series: [44, 55],
+	// 		chart: {
+	// 			width: 380,
+	// 			type: 'donut',
+	// 		},
+	// 		responsive: [{
+	// 			breakpoint: 480,
+	// 			options: {
+	// 				chart: {
+	// 					width: 200
+	// 				},
+	// 				legend: {
+	// 					position: 'bottom'
+	// 				}
+	// 			}
+	// 		}],
+	// 		colors: [primary, success, warning, danger, info]
+	// 	};
 
-		var chart = new ApexCharts(document.querySelector(apexChart), options);
-		chart.render();
-	}
+	// 	var chart = new ApexCharts(document.querySelector(apexChart), options);
+	// 	chart.render();
+	// }
+	var _demo11 = function () {
+	    const apexChart = "#chart_11";
+
+	    // Fetch the data from the server
+	    fetch(base_url + 'admin/get_male_student', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json'
+	        }
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Network response was not ok');
+	        }
+	        return response.json(); // Parse the JSON data from the response
+	    })
+	    .then(data => {
+	        // Assuming `data.series` contains the series data for the chart
+	        var options = {
+	            series: data.series, // Use the series data from the server
+	            chart: {
+	                width: 380,
+	                type: 'donut',
+	            },
+	            labels: ['Male', 'Female'],
+	            responsive: [{
+	                breakpoint: 480,
+	                options: {
+	                    chart: {
+	                        width: 200
+	                    },
+	                    legend: {
+	                        position: 'bottom'
+	                    }
+	                }
+	            }],
+	            colors: [primary, success, warning, danger, info],
+	             dataLabels: {
+			        enabled: true, // Enable data labels
+			        formatter: function(val, opts) {
+			            // Return the total value for each slice
+			            return opts.w.globals.series[opts.seriesIndex]; // Access the total value
+			        },
+			        style: {
+			            fontSize: '12px',
+			            fontFamily: 'Helvetica, Arial, sans-serif',
+			            fontWeight: 'bold',
+			            color: '#fff'
+			        }
+			    },
+			    legend: {
+			        position: 'right',
+			        offsetY: 0,
+			        height: 230,
+			        formatter: function(seriesName, opts) {
+			            // Format legend label to show total values
+			            return seriesName + ": " + opts.w.globals.series[opts.seriesIndex];
+			        }
+			    }
+	        };
+
+	        // Create and render the chart
+	        var chart = new ApexCharts(document.querySelector(apexChart), options);
+	        chart.render();
+	    })
+	    .catch(error => {
+	        console.error("Error:", error);
+	    });
+	};
 
 	var _demo12 = function () {
 		const apexChart = "#chart_12";
@@ -987,9 +1123,9 @@ var KTApexChartsDemo = function () {
 	var _demo13 = function () {
 		const apexChart = "#chart_13";
 		var options = {
-			series: [44, 55, 67, 83],
+			series: [44, 55],
 			chart: {
-				height: 350,
+				height: 255,
 				type: 'radialBar',
 			},
 			plotOptions: {
@@ -1012,8 +1148,8 @@ var KTApexChartsDemo = function () {
 					}
 				}
 			},
-			labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
-			colors: [primary, success, warning, danger]
+			labels: ['Present', 'Absent'],
+			colors: [warning, danger]
 		};
 
 		var chart = new ApexCharts(document.querySelector(apexChart), options);

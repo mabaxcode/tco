@@ -80,6 +80,7 @@ class Student extends CI_Controller {
 
         	# checking register form complete or not
         	$this->form_validation->set_rules('name', 'Name', 'required');
+            $this->form_validation->set_rules('gender', 'Gender', 'required');
         	$this->form_validation->set_rules('phone_no', 'Phone Number', 'required');
         	$this->form_validation->set_rules('email', 'Email', 'required');
         	$this->form_validation->set_rules('address', 'Address', 'required');
@@ -136,6 +137,7 @@ class Student extends CI_Controller {
                 'school_name' => $post['school_name'],
                 'school_address' => $post['school_address'],
                 'guardian_phone' => $post['guardian_phone'],
+                'gender' => $post['gender']
         	);
 
             // echo "<pre>"; print_r($student_info); echo "</pre>"; exit;
@@ -346,7 +348,7 @@ class Student extends CI_Controller {
         $post = $this->input->post();
         $tuition_id = $post['tuition_id'];
 
-        $update = array('paid' => '1', 'stage' => 'PROCESSING', 'internal_stage' => 'VERIFY');
+        $update = array('paid' => '1', 'stage' => 'PROCESSING', 'internal_stage' => 'VERIFY', 'create_dt' => current_dt());
         $where = array('tuition_id' => $tuition_id, 'student_id' => $this->user_id );
 
         $update_doc = array('is_submit' => '1');

@@ -9,6 +9,7 @@
 						<th>Class Date</th>
 						<th>Class Time</th>
 						<th>Class Type</th>
+						<th>Status</th>
 						<th style="text-align: right;">Action</th>
 					</tr>
 				</thead>
@@ -36,10 +37,28 @@
 								<span class="label label-inline font-weight-bold label-danger">Physical Class</span>
 								<? } ?>
 							</td>
+							<td>
+								<? $action = '1'; ?>
+								<? if($key['status'] == '2'){ ?>
+										<b><font color="red">Class Has Finished</font></b>
+								<? } else {
+
+										if (strtotime($now) < strtotime($key['class_dt'])) { 
+										$action = '2';
+										?>
+										<a href="#" class="btn btn-icon btn-light-success pulse pulse-success mr-5">
+										    <i class="flaticon2-protected"></i>
+										    <span class="pulse-ring"></span>
+										</a>
+
+										<? }
+
+								} ?>
+							</td>
 							<?/* <td><span class="label label-inline font-weight-bold label-info"><?= get_class_ref($key['class_id'])?></span></td> */?>
 							<td align="right">
-								<a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase view-student-details" data-init="<?= $key['id']?>">
-								Make Attendence</a>
+								<a href="#" class="btn btn-sm btn-info font-weight-bolder btn-make-attendence" data-init="<?= $key['id']?>" data-action="<?= $action?>">
+								Attendence</a>
 							</td>
 						</tr>
 						<? } ?>

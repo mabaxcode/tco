@@ -73,6 +73,16 @@
 									</div>
 								</div>
 								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Gender</label>
+									<div class="col-lg-9 col-xl-6">
+										<select name="gender" class="form-control form-control-lg">
+												<option value="">Please Select</option>
+												<option value="M">Male</option>
+												<option value="F">Female</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
 									<label class="col-xl-3 col-lg-3 text-right col-form-label">* Form</label>
 									<div class="col-lg-9 col-xl-6">
 										<!-- <input class="form-control form-control-lg" type="number" name="form" /> -->

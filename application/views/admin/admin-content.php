@@ -71,6 +71,7 @@
 	<!--end::Card-->
 	<!--begin::Row-->
 	<div class="row">
+		<?/*
 		<div class="col-lg-12">
 			<div class="card card-custom card-stretch gutter-b">
 				<!--begin::Header-->
@@ -152,6 +153,7 @@
 				<!--end::Body-->
 			</div>
 		</div>
+		*/?>
 		
 		<?/*
 		<div class="col-lg-4">
@@ -347,11 +349,11 @@
 				<div class="card-header h-auto border-0">
 					<div class="card-title py-5">
 						<h3 class="card-label">
-							<span class="d-block text-dark font-weight-bolder">Recent Orders</span>
-							<span class="d-block text-muted mt-2 font-size-sm">More than 500+ new orders</span>
+							<span class="d-block text-dark font-weight-bolder">Overall Tuition Request</span>
+							<!-- <span class="d-block text-muted mt-2 font-size-sm">More than 500+ new orders</span> -->
 						</h3>
 					</div>
-					<div class="card-toolbar">
+					<!-- <div class="card-toolbar">
 						<ul class="nav nav-pills nav-pills-sm nav-dark-75" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link py-2 px-4" data-toggle="tab" href="#kt_charts_widget_2_chart_tab_1">
@@ -369,17 +371,36 @@
 								</a>
 							</li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 				<!--end::Header-->
 				<!--begin::Body-->
 				<div class="card-body">
-					<div id="kt_charts_widget_4_chart"></div>
+					<div id="chart_1" class="d-flex justify-content-center"></div>
 				</div>
 				<!--end::Body-->
 			</div>
 			<!--end::Charts Widget 4-->
 		</div>
+		<div class="col-lg-6">
+			<!--begin::Card-->
+			<div class="card card-custom gutter-b">
+				<div class="card-header h-auto border-0">
+					<div class="card-title">
+						<h3 class="card-label">Total Students by Gender</h3>
+					</div>
+				</div>
+				<div class="card-body">
+					<!--begin::Chart-->
+					<div id="chart_11" class="d-flex justify-content-center"></div>
+					<!--end::Chart-->
+					<br><br><br><br>
+					<br><br><br>
+				</div>
+			</div>
+			<!--end::Card-->
+		</div>
+		<?/*
 		<div class="col-lg-6">
 			<!--begin::List Widget 11-->
 			<div class="card card-custom card-stretch gutter-b">
@@ -585,6 +606,7 @@
 			</div>
 			<!--end::List Widget 11-->
 		</div>
+		*/?>
 	</div>
 	<!--end::Row-->
 </div>

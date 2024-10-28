@@ -40,6 +40,7 @@
 								<? } ?>
 							</td>
 							<td>
+								<? if($key['status'] == '1'){ ?>
 								<div class="col-8">
 							   		<span class="switch switch-outline switch-icon switch-danger">
 							    	<label>
@@ -55,6 +56,9 @@
 							    	</label>
 							   		</span>
 							  	</div>
+							  	<? } else { ?>
+							  	<b><font color="red">Class Has Finished</font></b>
+							  	<? } ?>
 							</td>
 						</tr>
 						<? } ?>

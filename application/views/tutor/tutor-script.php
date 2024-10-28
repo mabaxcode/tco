@@ -521,5 +521,79 @@
         });
     });
 
+    
+    $(document).on('click', '.btn-make-attendence', function(e){
+        
+        e.preventDefault();
+
+        var id = $(this).data('init');
+        var action = $(this).data('action');
+
+        if (action == '2') {
+        	iziToast.info({
+	            title: 'Warning',
+	            message: "This class not start yet",
+	            transitionIn: 'bounceInLeft',
+	            position: 'topCenter',
+	        });
+	        return false;
+        }
+
+        $.ajax({
+        	url: base_url + 'tutor/make_attendence_modal',
+            type: "POST",
+            async: true,
+            data:{id:id},
+            success: function( response ){
+                $('#modal_form_details').html(response);
+                $('#modal_form_details').modal('show');
+            },
+            error: function(data){
+                // console.log(data);
+            },
+        });
+    });
+
+
+    function act_attend_class(id)
+	{   
+	    // Get the checkbox element
+	    const checkbox = document.getElementById('attend-check-'+id);
+
+	    var attend = '';
+	  
+	    // Check if the checkbox is checked or not
+	    if (checkbox.checked) {
+	        attend = '1';
+	        
+	    } else {
+	        attend = '0';
+	    }
+
+	    $.ajax({
+	        url: base_url + 'tutor/update_attendence',
+	        type: "POST",
+	        data:{attend:attend,id:id},
+	        async: true,
+	        dataType:"json",
+	        success: function( response ){
+	            if (response.status == true) {
+	                // location.reload();
+	                iziToast.success({
+	                    // title: 'success',
+	                    message: "Data Successfully Saved !",
+	                    transitionIn: 'bounceInLeft',
+	                    position: 'topCenter',
+	                });
+	            }
+	            
+	        },
+	        error: function(data){
+	            // console.log(data);
+	        },
+	    });
+
+
+	}
 
 </script>

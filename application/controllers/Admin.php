@@ -696,4 +696,39 @@ class Admin extends CI_Controller {
         $this->load->view('admin/modal/modal-view-class-details', $data);
         // test
     }
+
+    function get_male_student()
+    {   
+
+        $male   = count_any_table(array('gender' => 'M', 'approved' => '1'), 'student_information');
+        $female = count_any_table(array('gender' => 'F', 'approved' => '1'), 'student_information');
+
+        $response = array('series' => [$male, $female]);
+        echo encode($response);
+    }
+
+    function overall_tution_request()
+    {   
+
+        $year = date("Y");
+
+        $jan = get_request_tution_on('1', $year);
+        $feb = get_request_tution_on('2', $year);
+        $mac = get_request_tution_on('3', $year);
+        $apr = get_request_tution_on('4', $year);
+        $may = get_request_tution_on('5', $year);
+        $jun = get_request_tution_on('6', $year);
+        $jly = get_request_tution_on('7', $year);
+        $aug = get_request_tution_on('8', $year);
+        $sep = get_request_tution_on('9', $year);
+        $oct = get_request_tution_on('10', $year);
+        $nov = get_request_tution_on('11', $year);
+        $dec = get_request_tution_on('12', $year);
+
+
+        $response = array('series' => [$jan, $feb, $mac, $apr, $may, $jun, $jly, $aug, $sep, $oct, $nov, $dec]);
+        // 10, 41, 35, 51, 49, 62, 69, 91, 148, 12, 2, 3
+        // $response = array('series' => [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0]);
+        echo encode($response);
+    }
 }

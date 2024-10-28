@@ -535,13 +535,37 @@ class Tutor extends CI_Controller {
         $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
 
         $data['timetables']   = $this->DbTutor->get_myTimeTables($this->user_id);
+        $data['now']          = date("Y-m-d");
 
         $this->load->view('tutor/tutor-dashboard', $data);
     }
 
+    function make_attendence_modal($data=false)
+    {   
+
+        $id = $this->input->post('id');
+
+        $timetable = get_any_table_row(array('id' => $id), 'student_timetable');
+
+        $data['student'] = get_any_table_array(array('tutor_id' => $this->user_id, 'class_dt' => $timetable['class_dt'], 'class_time' => $timetable['class_time']), 'student_timetable');
+
+        $this->load->view('tutor/modal/modal-make-attendence', $data);
+    }
 
 
+    function update_attendence($data=false)
+    {
+        $id = $this->input->post('id');
+        $class_attend = $this->input->post('attend');
 
+        $update = array('class_attend' => $class_attend);
+        $where = array('id' => $id);
+
+        update_any_table($update, $where, 'student_timetable');
+
+        $response = array('status' => true );
+        echo encode($response);
+    }
 
 
 }   
