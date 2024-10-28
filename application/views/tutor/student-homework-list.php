@@ -55,13 +55,13 @@
 
         						$total_student_complete   = count_student_complete($student_under_this_tutor, $key['id']);
 
-        						echo "<b>Total Student Complete Homework : ". $total_student_complete . "/" . $total_student . "</b>";
+        						echo "<font color='red'><b>Total Student Complete Homework : ". $total_student_complete . "/" . $total_student . "</b></font>";
 
 								?>
 							</td>
 							<?/* <td><span class="label label-inline font-weight-bold label-info"><?= get_class_ref($key['class_id'])?></span></td> */?>
 							<td align="right">
-								<a href="#" class="btn btn-sm btn-info font-weight-bolder view-student-homework-detail" data-init="<?= $key['id']?>">View</a>
+								<a href="<?= base_url('tutor/view_homework_details/'.$key['id']); ?>" class="btn btn-sm btn-info font-weight-bolder">View</a>
 							</td>
 						</tr>
 						<? } ?>

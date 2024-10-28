@@ -99,7 +99,7 @@
 				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+			<!-- 	<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 					<span class="mr-4">
 						<i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -107,7 +107,7 @@
 						<span class="text-dark-75 font-weight-bolder font-size-sm">1 Homework Need To Complete</span>
 						<a href="#" class="text-primary font-weight-bolder">View</a>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
 				<!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
@@ -121,7 +121,7 @@
 				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
+				<!-- <div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
 					<span class="mr-4">
 						<i class="flaticon-network display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -145,7 +145,7 @@
 							<span class="symbol-label font-weight-bold">5+</span>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 			</div>
 

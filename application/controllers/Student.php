@@ -403,9 +403,41 @@ class Student extends CI_Controller {
             $data['no_subject']   = true;
         }
 
-        
-
         $this->load->view('student/student-dashboard', $data);
     
     }
+
+    function mymaterial($data=false)
+    {
+        $data['content']      = 'student/mymaterial';
+        $data['add_script']   = 'student/student-script';
+        $data['page_title']   = 'Student Materials';
+
+        $data['users']        = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        $data['all_subject'] = get_any_table_array(array('active' => '1'), 'ref_subject');
+
+        $this->load->view('student/student-dashboard', $data);
+
+    }
+
+
+    function subject_material($subject_id)
+    {
+        $data['content']      = 'student/mymaterial-list';
+        $data['add_script']   = 'student/student-script';
+        $data['page_title']   = "Student's Material";
+
+        $data['users']        = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        $data['student_material'] = get_any_table_array(array('subject_id' => $subject_id), 'student_material');
+
+        $this->load->view('student/student-dashboard', $data);
+    }
+
+
+
+
+
+
 }

@@ -181,7 +181,7 @@ class Tutor extends CI_Controller {
                 'start'         => $event['class_dt'] . 'T' . $time24Hour . ":00",
                 'description'   => $class_type,
                 'className'     => $class_name,
-                'url' => 'http://google.com/',
+                //'url' => 'http://google.com/',
             ];
 
             // $eventArray[] = [
@@ -500,10 +500,29 @@ class Tutor extends CI_Controller {
 
         $data['homeworks'] = get_any_table_array(array('tutor_id' => $this->user_id, 'id' => $homework_id), 'homework');
 
+        $this->load->view('tutor/modal/modal-student-details', $data);
 
-        
+    }
 
+    function view_homework_details($id)
+    {
+        # create homework for their students
+        $data['content']     = 'tutor/homework-details';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = "Homework Details";
 
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+        $data['homeworks']   = get_any_table_row(array('tutor_id' => $this->user_id, 'id' => $id), 'homework');
+
+        // print_r($data['homeworks']); exit;
+        $form = $data['homeworks']['form'];
+        $data['tutor'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
+
+        $data['students'] = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['tutor']['assign_class']), 'student_class');
+
+        $data['form'] = $form;
+
+        $this->load->view('tutor/tutor-dashboard', $data);
     }
 
 
