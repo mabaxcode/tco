@@ -494,4 +494,84 @@
         });
     });
 
+    $(document).on('click', '.upload-homework-answer', function(e){
+        e.preventDefault();
+
+        var homework_id = $(this).data('init');
+
+        $.ajax({
+            url: base_url + 'upload/check_student_homework',
+            type: "POST",
+            async: true,
+            dataType:"json",
+            data:{homework_id:homework_id},
+            success: function( response ){
+                if (response.status == false) {
+                    iziToast.error({
+                        // title: 'Warning',
+                        message: "You have already upload",
+                        transitionIn: 'bounceInLeft',
+                        position: 'topCenter',
+                    });
+                } else {
+                    $.ajax({
+                        // url: base_url + 'upload/do_upload_student_homework',
+                        url: base_url + 'upload/upload_homework_answer',
+                        type: "POST",
+                        data:{homework_id:homework_id},
+                        async: true,
+                        success: function( response ){
+                            $('#modal-upload-doc').html(response);
+                            $('#modal-upload-doc').modal('show');
+                        },
+                        error: function(data){
+                            // console.log(data);
+                        },
+                    });
+                }
+            },
+            error: function(data){
+            },
+        });  
+    });
+
+    $(document).on('click', '.stud-delete-homework', function(e){
+        e.preventDefault();
+
+        var id = $(this).data('init');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This file will be delete",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!"
+        }).then(function(result) {
+            if (result.value) {
+               
+                $.ajax({
+                    url: base_url + 'upload/delete_file_homework',
+                    type: "POST",
+                    data: {id:id},
+                    async: true,
+                    dataType:"json",
+                    success: function( response ){
+                        console.log(response);
+                        if (response.status == true) {
+                            Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                            )
+                        }
+                        location.reload();
+                    },
+                    error: function(data){
+                        // console.log(data);
+                    },
+                });
+            }
+        }); 
+    });
+
 </script>

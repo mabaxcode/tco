@@ -65,40 +65,13 @@
 						</div>
 					</div>
 					<!--end::Item-->
-					<!--begin::Item-->
-					<div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
-						<span class="mr-4">
-							<i class="flaticon-network display-4 text-muted font-weight-bold"></i>
-						</span>
-						<div class="symbol-group symbol-hover">
-							<div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-								<img alt="Pic" src="assets/media/users/300_25.jpg" />
-							</div>
-							<div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-								<img alt="Pic" src="assets/media/users/300_19.jpg" />
-							</div>
-							<div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Luca Doncic">
-								<img alt="Pic" src="assets/media/users/300_22.jpg" />
-							</div>
-							<div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Nick Mana">
-								<img alt="Pic" src="assets/media/users/300_23.jpg" />
-							</div>
-							<div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Teresa Fox">
-								<img alt="Pic" src="assets/media/users/300_18.jpg" />
-							</div>
-							<div class="symbol symbol-30 symbol-circle symbol-light">
-								<span class="symbol-label font-weight-bold">5+</span>
-							</div>
-						</div>
-					</div>
-					<!--end::Item-->
 				</div>
 		</div>
 	</div>
 	<!--end::Card-->
 	<!--begin::Row-->
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-12">
 			<div class="card card-custom card-stretch gutter-b">
 				<!--begin::Header-->
 				<div class="card-header border-0 pt-5">
@@ -180,6 +153,7 @@
 			</div>
 		</div>
 		
+		<?/*
 		<div class="col-lg-4">
 			<!--begin::Mixed Widget 14-->
 			<div class="card card-custom card-stretch gutter-b">
@@ -361,6 +335,7 @@
 			</div>
 			<!--end::Mixed Widget 14-->
 		</div>
+		*/?>
 	</div>
 	<!--end::Row-->
 	<!--begin::Row-->

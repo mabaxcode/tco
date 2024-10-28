@@ -22,6 +22,18 @@ class Upload_model extends CI_Model {
         return false;
 	}
 
+    function student_homework_exist($student_id, $homework_id)
+    {
+        $this->db->select('*');
+        $this->db->where(array('student_id' => $student_id, 'homework_id' => $homework_id));
+        $query = $this->db->get("homework_status");
+
+        if($query->num_rows() > 0){
+            return true;
+        }
+        return false;
+    }
+
     function tutor_document_exist($tutor_id, $module)
     {
         $this->db->select('*');

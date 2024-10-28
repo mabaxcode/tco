@@ -92,7 +92,7 @@
 							</div>	
 
 							<? 
-								$f1_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '1'), 'homework');
+								$f1_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '1', 'tutor_id' => $tutor['tutor_id']), 'homework');
 							?>
 
 							
@@ -133,7 +133,7 @@
 							</div>	
 
 							<? 
-								$f2_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '2'), 'homework');
+								$f2_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '2', 'tutor_id' => $tutor['tutor_id']), 'homework');
 							?>
 
 							
@@ -174,7 +174,7 @@
 
 
 							<? 
-								$f3_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '3'), 'homework');
+								$f3_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '3', 'tutor_id' => $tutor['tutor_id']), 'homework');
 							?>
 
 							
@@ -214,7 +214,7 @@
 							</div>	
 
 							<? 
-								$f4_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '4'), 'homework');
+								$f4_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '4', 'tutor_id' => $tutor['tutor_id']), 'homework');
 
 
 							?>
@@ -260,7 +260,7 @@
 							</div>	
 
 							<? 
-								$f5_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '5'), 'homework');
+								$f5_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '5', 'tutor_id' => $tutor['tutor_id']), 'homework');
 							?>
 
 							
@@ -301,7 +301,7 @@
 
 
 							<? 
-								$f7_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '7'), 'homework');
+								$f7_homework = get_any_table_array(array('class_id' => $class_id, 'subject_id' => $subject_id, 'form' => '7', 'tutor_id' => $tutor['tutor_id']), 'homework');
 							?>
 
 							

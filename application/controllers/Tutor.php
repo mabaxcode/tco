@@ -208,13 +208,8 @@ class Tutor extends CI_Controller {
         $data['page_title']  = 'All My Students';
 
         $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
-        // $data['resume_doc']  = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor_document');
-        // $data['subject']     = get_any_table_array(array('active' => '1'), 'ref_subject');
-
-
-        # class taken
         $data['class_taken'] = get_any_table_row(array('tutor_id' => $this->user_id), 'tutor');
-        // $data['students']    = get_any_table_array(array('tutor_id' => $this->user_id, 'class_id' => $data['class_taken']['assign_class']), 'student_class');
+        $data['students']    = $this->DbTutor->get_all_mystudent($this->user_id, $data['class_taken']['assign_class']);
 
         $this->load->view('tutor/tutor-dashboard', $data);
     }
@@ -455,7 +450,8 @@ class Tutor extends CI_Controller {
             'class_id' => $post['class_id'],
             'subject_id' => $post['subject_id'],
             'form' => $post['form'],
-            'attachment ' => $post['temp_key']
+            'attachment ' => $post['temp_key'],
+            'tutor_id' => $this->user_id
         );
 
         // print_r($insert);

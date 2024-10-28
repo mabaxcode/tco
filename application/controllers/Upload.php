@@ -29,6 +29,22 @@ class Upload extends CI_Controller {
                 echo encode($response);
         }
 
+        public function check_student_homework()
+        {       
+                $homework_id = $this->input->post('homework_id');
+
+                # only one doc allowed
+                $check_doc_exist = $this->DbUpload->student_homework_exist($this->user_id, $homework_id);
+
+                if ($check_doc_exist == true) {
+                        $response = array('status' => false );
+                } else {
+                        $response = array('status' => true );
+                }
+
+                echo encode($response);
+        }
+
         public function check_resume_document()
         {       
                 # only one doc allowed
@@ -68,6 +84,16 @@ class Upload extends CI_Controller {
                 $data['module']  = $post['module'];
 
                 $this->load->view('upload/modal-upload-single-document', $data);
+        }
+        
+        function upload_homework_answer($data=false)
+        {       
+                $homework_id = $this->input->post('homework_id');
+
+                // $data['user_id']      = $this->user_id;
+                $data['homework_id']  = $homework_id;
+
+                $this->load->view('upload/modal-upload-homework-answer', $data);
         }
 
         function upload_resume($data=false)
@@ -220,6 +246,21 @@ class Upload extends CI_Controller {
                 $post = $this->input->post();
                 // echo "<pre>";print_r($post); echo "</pre>";
                 $delete = delete_any_table(array('id' => $post['id']), 'student_document');
+
+                if ($delete == true) {
+                        $response = array('status' => true, 'msg' => 'File successfully delete');
+                } else {
+                        $response = array('status' => false, 'msg' => 'Error on deleting file');
+                }
+                
+                echo encode($response);
+        }
+
+        function delete_file_homework($data=false)
+        {
+                $post = $this->input->post();
+                // echo "<pre>";print_r($post); echo "</pre>";
+                $delete = delete_any_table(array('id' => $post['id']), 'homework_status');
 
                 if ($delete == true) {
                         $response = array('status' => true, 'msg' => 'File successfully delete');
@@ -453,6 +494,69 @@ class Upload extends CI_Controller {
 
                 
                 echo  encode($response); 
+        }
+
+        function do_upload_student_homework($data=false)
+        {      
+                $post = $this->input->post();
+                
+
+                // echo "<pre>"; print_r($_FILES['file']); echo "</pre>"; exit();
+
+
+                if(!empty($_FILES['file']['name'])){
+                        
+                        $ext                            = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                        $hashfilename                   = getRandomString('20') . "." . $ext;
+                        $config['upload_path']          = './uploads/student-document';
+                        $config['allowed_types']        = 'pdf|doc|docx|xls|xlsx';
+                        $config['max_size']             = 9999;
+                        $config['file_name']            = $hashfilename;
+
+                        $this->load->library('upload', $config);
+
+                        $status = true;
+                        if ( ! $this->upload->do_upload('file'))
+                        {
+                                $error      = array('error' => $this->upload->display_errors());
+                                $status     = false;
+                                $error_msg  = $error['error'];
+                        }
+                        else
+                        {       
+                                # insert success upload
+                                $data_insert = array(
+                                        'student_id' => $this->user_id, 
+                                        'homework_id' => $post['homework_id'],
+                                        'path' => $config['upload_path'],
+                                        'create_dt' => current_dt(),
+                                        'filename' => $hashfilename,
+                                        'original_filename' => $_FILES['file']['name'],
+                                        'status' => '1'
+                                );
+
+                                $insert = insert_any_table($data_insert, 'homework_status');
+
+                        }
+
+                } else {
+                        $status = false;
+                        $error_msg = 'File not found';
+                }
+
+                if ($status == true) {
+                        //$getback_document = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
+
+                        # create html view
+                        //$document = '<div class="alert alert-secondary mt-2" role="alert"><a href="#" class="alert-link">'.$getback_document['original_filename'].'</a><a href="#" class="close delete-stud-doc" data-init="'.$getback_document['id'].'"><i class="ki ki-close icon-nm"></i></a></div>';
+
+                        $response = array('status' => true, 'msg' => 'File successfully uploaded');
+                } else {
+                        $response = array('status' => false, 'msg' => $error_msg );
+                }
+
+                
+                echo  encode($response);
         }
 }       
 

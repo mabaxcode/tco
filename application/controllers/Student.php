@@ -379,4 +379,33 @@ class Student extends CI_Controller {
 
         $this->load->view('student/modal/modal-view-tuition', $data);
     }
+
+    function myhomework($data=false)
+    {
+        $data['content']      = 'student/myhomework';
+        $data['add_script']   = 'student/student-script';
+        $data['page_title']   = 'My Homework';
+
+        # application data
+        // $data['tuition_apps'] = get_any_table_array(array('student_id' => $this->user_id), 'tuition_application');
+
+        // # check pending app
+        // $data['pending_app'] = get_any_table_row(array('student_id' => $this->user_id, 'stage !=' => 'COMPLETE'), 'tuition_application');
+
+        $data['users']        = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        # get student subject
+        $data['timetable_subjects'] = $this->DbStudent->get_subject_base_on_timetable($data['users']['id']);
+
+        if ($data['timetable_subjects']) {
+            $data['no_subject']   = false;
+        } else {
+            $data['no_subject']   = true;
+        }
+
+        
+
+        $this->load->view('student/student-dashboard', $data);
+    
+    }
 }

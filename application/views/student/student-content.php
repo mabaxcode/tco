@@ -63,7 +63,7 @@
 			<div class="separator separator-solid"></div>
 			<div class="d-flex align-items-center flex-wrap mt-8">
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+				<!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 					<span class="mr-4">
 						<i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -72,10 +72,10 @@
 						<span class="font-weight-bolder font-size-h5">
 						<span class="text-dark-50 font-weight-bold">$</span>249,500</span>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+				<!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 					<span class="mr-4">
 						<i class="flaticon-confetti display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -84,10 +84,10 @@
 						<span class="font-weight-bolder font-size-h5">
 						<span class="text-dark-50 font-weight-bold">$</span>164,700</span>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+				<!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 					<span class="mr-4">
 						<i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -96,7 +96,7 @@
 						<span class="font-weight-bolder font-size-h5">
 						<span class="text-dark-50 font-weight-bold">$</span>782,300</span>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
 				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
@@ -104,13 +104,13 @@
 						<i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
 					</span>
 					<div class="d-flex flex-column flex-lg-fill">
-						<span class="text-dark-75 font-weight-bolder font-size-sm">73 Tasks</span>
+						<span class="text-dark-75 font-weight-bolder font-size-sm">1 Homework Need To Complete</span>
 						<a href="#" class="text-primary font-weight-bolder">View</a>
 					</div>
 				</div>
 				<!--end::Item-->
 				<!--begin::Item-->
-				<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+				<!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
 					<span class="mr-4">
 						<i class="flaticon-chat-1 display-4 text-muted font-weight-bold"></i>
 					</span>
@@ -118,7 +118,7 @@
 						<span class="text-dark-75 font-weight-bolder font-size-sm">648 Comments</span>
 						<a href="#" class="text-primary font-weight-bolder">View</a>
 					</div>
-				</div>
+				</div> -->
 				<!--end::Item-->
 				<!--begin::Item-->
 				<div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
@@ -154,7 +154,7 @@
 	<!--end::Card-->
 	<!--begin::Row-->
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-12">
 			<div class="card card-custom card-stretch gutter-b">
 				<? if($timetable == true): ?>
 				<!--begin::Header-->
@@ -228,7 +228,7 @@
 									
 									<!--end::Info-->
 									<!--begin::Action-->
-									<a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">View</a>
+									<!-- <a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">View</a> -->
 									<!--end::Action-->
 								</div>
 								<? } ?>
@@ -263,6 +263,7 @@
 			</div>
 		</div>
 		
+		<?/*
 		<div class="col-lg-4">
 			<!--begin::Mixed Widget 14-->
 			<div class="card card-custom card-stretch gutter-b">
@@ -362,9 +363,11 @@
 			</div>
 			<!--end::Mixed Widget 14-->
 		</div>
+		*/?>
 	</div>
 	<!--end::Row-->
 	<!--begin::Row-->
+	<?/*
 	<div class="row">
 		<div class="col-lg-6">
 			<!--begin::Charts Widget 4-->
@@ -612,5 +615,6 @@
 			<!--end::List Widget 11-->
 		</div>
 	</div>
+*/?>
 	<!--end::Row-->
 </div>

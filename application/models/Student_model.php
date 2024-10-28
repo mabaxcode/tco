@@ -50,4 +50,21 @@ class Student_model extends CI_Model {
 			return false;
 		}
     }
+
+    function get_subject_base_on_timetable($student_id)
+    {
+    	$this->db->select('*');
+        $this->db->where('student_id', $student_id);
+        $this->db->where('status', '1');
+        $this->db->group_by('subject_id');
+		$this->db->order_by('class_dt', 'ASC');
+
+		$query = $this->db->get('student_timetable');
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+    }
 }
