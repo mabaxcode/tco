@@ -525,5 +525,23 @@ class Tutor extends CI_Controller {
         $this->load->view('tutor/tutor-dashboard', $data);
     }
 
+    function attendence($data=false)
+    {
+        # create homework for their students
+        $data['content']     = 'tutor/attendence';
+        $data['add_script']  = 'tutor/tutor-script';
+        $data['page_title']  = "Studen's Attendence";
+
+        $data['users']       = get_any_table_row(array('id' => $this->user_id), 'users');
+
+        $data['timetables']   = $this->DbTutor->get_myTimeTables($this->user_id);
+
+        $this->load->view('tutor/tutor-dashboard', $data);
+    }
+
+
+
+
+
 
 }   

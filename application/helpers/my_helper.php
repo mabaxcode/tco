@@ -381,6 +381,21 @@ function count_student_complete($loopStudents, $homework_id)
     return $count;
 }
 
+function dmy($p_ymd, $p_sep = "/")
+{
+    $yy = substr($p_ymd, 0, 4);
+    $mm = substr($p_ymd, 5, 2);
+    $dd = substr($p_ymd, 8, 2);
+
+    $r_dmy = $dd . $p_sep . $mm . $p_sep . $yy;
+
+    if ($r_dmy == $p_sep . $p_sep or $r_dmy == "00" . $p_sep . "00" . $p_sep . "0000") {
+        $r_dmy = "";
+    }
+
+    return $r_dmy;
+}
+
 
 
 
