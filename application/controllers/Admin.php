@@ -731,4 +731,19 @@ class Admin extends CI_Controller {
         // $response = array('series' => [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0]);
         echo encode($response);
     }
+
+    function attendance_record($data=false)
+    {
+        $data['content']     = 'admin/attendance-record';
+        $data['page_title']  = 'Student Timetable';
+        $data['add_script']  = 'admin/admin-script';
+
+        $data['tuition_apps'] = get_any_table_array(array('paid' => '1', 'stage' => 'ONGOING CLASS', 'internal_stage' => 'COMPLETE', 'time_table' =>'1'), 'tuition_application');
+
+        // echo "<pre>"; print_r($data['tuition_apps']); echo "</pre>"; exit();
+
+        // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
+
+        $this->load->view('admin/admin-dashboard', $data);
+    }
 }

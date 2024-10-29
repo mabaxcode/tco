@@ -13,7 +13,7 @@
 						<div class="d-flex flex-column text-dark-75">
 							<span class="font-weight-bolder font-size-sm">Total Students</span>
 							<span class="font-weight-bolder font-size-h5">
-							<span class="text-dark-50 font-weight-bold">100</span>
+							<span class="text-dark-50 font-weight-bold">4</span>
 						</div>
 					</div>
 					<!--end::Item-->
@@ -25,7 +25,7 @@
 						<div class="d-flex flex-column text-dark-75">
 							<span class="font-weight-bolder font-size-sm">Total Tutors</span>
 							<span class="font-weight-bolder font-size-h5">
-							<span class="text-dark-50 font-weight-bold">200</span>
+							<span class="text-dark-50 font-weight-bold">2</span>
 						</div>
 					</div>
 					<!--end::Item-->
