@@ -28,6 +28,9 @@ class Admin extends CI_Controller {
         $data['total_tuition_request'] = $this->DbAdmin->total_tuition_request(); 
         $data['total_tutor_request'] = $this->DbAdmin->total_tutor_request(); 
 
+        $data['total_student'] = count_any_table(array('approved' => '1'), 'student_information');
+        $data['total_tutor']   = count_any_table(array('status' => '2'), 'tutor');
+
 		$this->load->view('admin/admin-dashboard', $data);
 	}
 
@@ -346,10 +349,26 @@ class Admin extends CI_Controller {
     {   
         $tutor_id = $this->input->post('id');
 
-        $data['tutor_data'] = get_any_table_row(array('tutor_id' => $tutor_id), 'tutor');
-        $data['class'] = get_any_table_array(array('status' => '1'), 'class');
 
-        $this->load->view('admin/modal/modal-assign-class', $data);
+
+        $data['tutor_data'] = get_any_table_row(array('tutor_id' => $tutor_id), 'tutor');
+        $data['class']      = get_any_table_array(array('status' => '1'), 'class');
+
+        $assigned_class = $data['tutor_data']['assign_class'];
+
+        $status = get_any_table_row(array('tutor_id' => $tutor_id, 'class_id' => $assigned_class), 'student_class');
+
+
+        // $where = array('tutor_id' => $tutor_id, 'class_id' => $assigned_class);
+        // print_r(array('tutor_id' => $tutor_id, 'class_id' => $assigned_class)); exit;
+
+        if ($status == true) {
+            $this->load->view('admin/modal/modal-assign-class-denied', $data);
+        } else {
+            $this->load->view('admin/modal/modal-assign-class', $data);
+        }
+
+        
     }
 
     function update_class_modal($data=false)
@@ -735,15 +754,32 @@ class Admin extends CI_Controller {
     function attendance_record($data=false)
     {
         $data['content']     = 'admin/attendance-record';
-        $data['page_title']  = 'Student Timetable';
+        $data['page_title']  = 'Student Attendance';
         $data['add_script']  = 'admin/admin-script';
 
-        $data['tuition_apps'] = get_any_table_array(array('paid' => '1', 'stage' => 'ONGOING CLASS', 'internal_stage' => 'COMPLETE', 'time_table' =>'1'), 'tuition_application');
+        $data['tuition_apps'] = $this->DbAdmin->get_student_intimetable();
 
         // echo "<pre>"; print_r($data['tuition_apps']); echo "</pre>"; exit();
 
         // $data['nric_doc']    = get_any_table_row(array('student_id' => $this->user_id), 'student_document');
 
         $this->load->view('admin/admin-dashboard', $data);
+    }
+
+    function view_attendance($data=false)
+    {   
+        $id = $this->input->post('id');
+        $data['attendance'] = get_any_table_array(array('student_id' => $id), 'student_timetable');
+
+        # student in this class
+        // count_student_inClass
+        //$data['students'] = $this->DbAdmin->get_student_in_the_class($id);
+        //$data['tutors'] = $this->DbAdmin->get_tutor_in_the_class($id);
+        // echo $data['students']; 
+
+        $data['now'] = date("Y-m-d");
+
+        $this->load->view('admin/modal/modal-view-attendance-record', $data);
+        // test
     }
 }

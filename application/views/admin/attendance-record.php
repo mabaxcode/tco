@@ -11,8 +11,8 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Tuition ID</th>
 						<th>Student Name</th>
+						<th>Phone No.</th>
 						<!-- <th>Student's Subject</th> -->
 						<th style='text-align:right;'>Action</th>
 					</tr>
@@ -23,12 +23,12 @@
 						<? foreach ($tuition_apps as $key) { ?>
 						<tr>
 							<td><?= $no++;?></td>
-							<td><?= $key['tuition_id']?></td>
 							<td>
 								<?= strtoupper(get_value_from_any_table('student_information', 'name', array('student_id' => $key['student_id'])));?>
 							</td>
+							<td><?= strtoupper(get_value_from_any_table('student_information', 'phone_no', array('student_id' => $key['student_id'])));?></td>
 							<td align='right'>
-								<a href="<?= base_url('admin/view_timetable/'. $key['tuition_id']) ?>" class="btn btn-sm btn-warning font-weight-bolder text-uppercase">View Timetable</a>
+								<a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase view-attendance-record" data-init="<?= $key['student_id']?>">View Record</a>
 							</td>
 						</tr>
 						<? } ?>

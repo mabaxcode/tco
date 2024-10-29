@@ -145,4 +145,19 @@ class Admin_model extends CI_Model {
 
 	}
 
+	function get_student_intimetable($data=false)
+	{
+		$this->db->select('*');
+        $this->db->group_by('student_id');
+        $this->db->order_by('class_dt', 'ASC');
+
+        $query = $this->db->get('student_timetable');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+	}
+
 }

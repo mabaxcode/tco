@@ -916,6 +916,27 @@ $(document).on('click', '.view-class-details', function(e){
 
 });
 
+$(document).on('click', '.view-attendance-record', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('init');
+
+    $.ajax({
+        url: base_url + 'admin/view_attendance',
+        type: "POST",
+        data:{id:id},
+        async: true,
+        success: function( response ){
+            $('#modal_student_regform').html(response);
+            $('#modal_student_regform').modal('show');
+        },
+        error: function(data){
+            // console.log(data);
+        },
+    });
+
+});
+
 
 
 </script>
